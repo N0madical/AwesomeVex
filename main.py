@@ -842,54 +842,6 @@ def stateMachine():
             currentMode = Modes.DEFAULT
             newState = States.DEFAULT
 
-    # elif currentMode == Modes.NAVIGATE:
-
-    #     if currentState == States.DEFAULT:
-    #         drivetrain.drive(0, 0, turnPID.getOutput(), False)
-    #     # else:
-    #     #     driveSpeed = 100
-    #     turnPID.setNewSetpoint(robot.navHeadingSetpoint)
-    #     #     drivetrain.drive(driveSpeed*math.cos(robot.navHeadingSetpoint), driveSpeed*math.sin(robot.navHeadingSetpoint), turnPID.getOutput(), True)
-    #     #     Printer.add(str(robot.navHeadingSetpoint), 5)
-        
-    #     if currentState == States.MOUNDDIST:
-    #         drivetrain.drive(100, 0, turnPID.getOutput(), False)
-    #         if (sonarL.distance(MM) > moundDist-25 and sonarL.distance(MM) < moundDist+25) and (robot.hold == False):
-    #             robot.navHeadingSetpoint = 270
-    #             robot.hold = True
-    #             Delays.schedule(Delays.Delay(1.9, States.AWAITWALL))
-
-    #         # if (sonarF.distance(MM) < 1250):
-    #         #     robot.navHeadingSetpoint = (robot.navHeadingSetpoint - 90) % 360
-    #         #     newState = States.AWAITWALL
-
-    #     elif currentState == States.AWAITWALL:
-    #         robot.hold = False
-    #         drivetrain.drive(0, -100, turnPID.getOutput(), False)
-    #         if(sonarF.distance(MM) < 300 and turnPID.atSetpoint(5)):
-    #             robot.navHeadingSetpoint = 180
-    #             newState = States.REORIENT
-        
-    #     # elif currentState == States.AWAITMOUND:
-    #     #     if (sonarF.distance(MM) < 100):
-    #     #         Delays.schedule(Delays.Delay(3, States.AWAITWALL))
-        
-    #     elif currentState == States.REORIENT:
-    #         drivetrain.drive(-100, 0, turnPID.getOutput(), False)
-    #         if(sonarF.distance(MM) < 300 and turnPID.atSetpoint(5)):
-    #             newState = States.RETURNTOSTART
-
-    #     elif currentState == States.RETURNTOSTART:
-    #         drivetrain.drive(0, 100, turnPID.getOutput(), False)
-    #         robot.navHeadingSetpoint = 90
-    #         if(sonarF.distance(MM) < 235):
-    #             robot.navHeadingSetpoint = 0
-    #             newState = States.DEFAULT
-        
-    #     if controllerButtons.pressed(Buttons.B): # end condition 
-    #             newState = States.DEFAULT
-    #             currentMode = Modes.DEFAULT
-
     elif currentMode == Modes.FRUITFOLLOWING:
         if camera.largestObject != None:
             #drivetrain.drive(fruitDistPID.update(largestVisionObject.height).getOutput(), 0, fruitTurnPID.update(largestVisionObject.centerX).getOutput(), True)
@@ -928,25 +880,31 @@ while True:
 # loop initialization
     drivetrain.active = False
     arm.active = False
+
 # inputs
     controllerButtons.update()
     camera.update()
     # drivetrain.updateOdometry() # has very little function and does not currently work correctly
     PID.updateAllPIDs()
+
 # scheduling
     Delays.checkAllDelays()
+
 # main run
     stateMachine()
+
 # extra outputs
     arm.updateGripper()
     if not drivetrain.active:
         drivetrain.stopAll()
     if not arm.active:
         arm.stop()
+
 # timing
     prevSystemTime = systemTime
     # while systemTime-prevSystemTime < 100000:
     systemTime = brain.timer.system_high_res()
+
 # logged time usage
     #timeUsageCalc()
     #print("timeUsage:", timeUsage)
