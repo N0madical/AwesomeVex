@@ -29,6 +29,7 @@ class States:
     # RETURNTOSTART = "Returning :)"
     WALL_FOLLOWING = "Following Wall"
     TURNING = "Turning"
+    FRUITFOLLOWING = "Fruit Grabbing"
 class Modes:
     """List of Modes."""
     NAVIGATE = "NAVIGATE"
@@ -271,7 +272,8 @@ class Arm:
     def stop(self):
         self.liftGroup.stop()
         self.driving = False
-    
+    def zero(self)
+
     def open(self):
         self.gripperCommand = 1
         self.gripperCommandTimer = 0
@@ -301,7 +303,86 @@ class Arm:
             self.gripperStatus = 2
         if self.gripperCommand == 0:
             self.gripper.stop()
+
+
+class Camera:
+    """Class to handle robot vision"""
+
+    def __init__(self, visionObject):
+        self.visionResults : list[list[VisionObject]] = [[],[],[],[],[],[],[]]
+        """2d array containing all of the vision objects the sensor found this cycle"""
+        self.largestObject = None
+        """the largest object the vision sensor saw this cycle"""
+        self.largestObjectType = 0
+        """the (0 indexed) id of the signature of the largest object found this cycle"""
+
+        self.locatedVisionObjects : list[LocatedVisionObject] = []
+        """visionResults list converted to a single list of LocatedVisionObject"""
+        self.averageLargestObject : LocatedVisionObject | None = None
+        """largest vision object averaged over 50 cycles"""
+        self.pastLargestLocatedObjects : list[LocatedVisionObject] = []
+        self.noDetectCounter = 0
+        """cycles since vision object was detected"""
+
+        self.vision = visionObject
+        self.take_snapshot = self.vision.take_snapshot
+        self.largest_object = self.vision.largest_object
+    
+    def update(self):
+        """updates all information related to vision"""
+        self.largestObject
+        self.largestObjectType
+        self.visionResults
+        self.noDetectCounter
+        self.averageLargestObject
+        self.largestObject = None
+        for sig in range (len(sigList)):
+            minArea = 50 # minimum allowable VisionObject area; smaller is ignored
+            sigResults = self.take_snapshot(sigList[sig])
+            self.visionResults[sig] = []
+
+            if sigResults != None:
+                self.visionResults[sig] = [i for i in sigResults if (i.height*i.width) > minArea] # only allow objects larger than minArea
+                if self.largestObject == None:                                    # there is not largest yet
+                    self.largestObject = self.vision.largest_object()
+                    self.largestObjectType = sig
+                elif vision.largest_object().height > self.largestObject.height:  # the new largest is larger than the old largest
+                    self.largestObject = self.vision.largest_object()
+                    self.largestObjectType = sig
+                if self.largestObject.height*self.largestObject.width < minArea: # largest is still too small
+                    self.largestObject = None
+
+        # located objects
+        self.locatedVisionObjects = []
+        for i in range(3): # don't need to locate anything except the fruits
+            for object in self.visionResults[i]:
+                self.locatedVisionObjects.append(LocatedVisionObject.fromRaw(sig, object))
         
+        # moving average largest object
+        if self.largestObject != None: # if an object exists
+            self.noDetectCounter = 0
+            if len(self.pastLargestLocatedObjects) != 0: # if has contents, insert the new largest
+                self.pastLargestLocatedObjects.insert(0, LocatedVisionObject.fromRaw(self.largestObjectType, self.largestObject))
+                if len(self.pastLargestLocatedObjects) > 50: # if too many, remove last
+                    self.pastLargestLocatedObjects.pop()
+            else: # if list is empty, simply add new largest
+                self.pastLargestLocatedObjects.append(LocatedVisionObject.fromRaw(self.largestObjectType, self.largestObject))
+            
+            # calculate the average
+            n = len(self.pastLargestLocatedObjects) 
+            self.averageLargestObject = LocatedVisionObject(sum([i.dist for i in self.pastLargestLocatedObjects])/n,
+                                                        sum([i.height for i in self.pastLargestLocatedObjects])/n,
+                                                        sum([i.angleTo for i in self.pastLargestLocatedObjects])/n,
+                                                        self.pastLargestLocatedObjects[0].color,
+                                                        self.pastLargestLocatedObjects[0].fruitType)
+        else: # no object
+            if self.noDetectCounter > 1000000: # 1 second passed with no object : no more averaging
+                self.pastLargestLocatedObjects.clear()
+                self.averageLargestObject = None
+            else:                         # 1 second not yet passed : count time since last detection
+                self.noDetectCounter += dt()
+
+
 class Robot:
     def __init__(self, PortMotorFL, PortMotorFR, PortMotorBL, PortMotorBR, PortMotorTRAY, PortGyro, PortVision, PortArmL, PortArmR, PortGripper, PortSonarB : Triport.TriportPort, PortSonarR : Triport.TriportPort):
         """initializes the hardware components of the robot"""
@@ -335,7 +416,7 @@ class Robot:
         self.sonarB = Sonar(PortSonarB)
         self.drivetrain = Drivetrain(self.gyro)
         self.vision = Vision(PortVision, cameraConfig["brightness"], *sigList)
-        self.camera = Camera()
+        self.camera = Camera(self.vision)
 
         # lineL = Line(brain.three_wire_port.e)
         # lineR = Line(brain.three_wire_port.f)
@@ -351,14 +432,14 @@ class Robot:
     def toggleTray(self):
         """Moves the fruit tray up and down"""
         if self.trayState == 0:
-            self.motor_TRAY.spin_to_position(360, DEGREES, False)
+            self.motor_TRAY.spin_to_position(-90, DEGREES, False)
             self.trayState = 1
         else:
             self.motor_TRAY.spin_to_position(0, DEGREES, False)
             self.trayState = 0
 
 # ports as ints are 0 indexed, but are 1 indexed on the brain and using 'Ports.Port_' notation
-robot = Robot(0, 1, 2, 3, 9, 8, 20, 5, 6, 19, brain.three_wire_port.c, brain.three_wire_port.a) # TODO: fix gripper port number
+robot = Robot(0, 1, 2, 3, 9, 8, 18, 5, 6, 19, brain.three_wire_port.c, brain.three_wire_port.a) # TODO: fix gripper port number
 """container for all robot hardware objects"""
 
 gyro = robot.gyro
@@ -548,7 +629,7 @@ class PID:
                 self.output = -self.maxOut
         
         # returns the PID instance
-        # return self
+        return self
     def setNewSetpoint(self, setpoint  : float):
         """Sets a new setpoint"""
         if self.continuousRotation == False: # standard PID
@@ -612,6 +693,10 @@ fruitDistPID = PID(5,0,1, 100, None, False)
 fruitDistPID.unbind()
 fruitDistPID.setNewSetpoint(35)
 
+armFruitPID = PID(5,0,1, 100, None, False)
+armFruitPID.unbind()
+armFruitPID.setNewSetpoint(0)
+
 wallPID = PID(1, 0, 1, 150, lambda : sonarB.distance(MM), False, False)
 wallPID.setNewSetpoint(200)
 
@@ -646,83 +731,6 @@ class LocatedVisionObject:
                                    color, fruitType) 
     def __str__(self) -> str:
         return "Dist:"+str(self.dist)+", Height:"+str(self.height)+", Angle:"+str(self.angleTo)+", Type:"+str(self.fruitType)+", Color:"+str(self.color)
-
-class Camera:
-    """Class to handle robot vision"""
-
-    def __init__(self):
-        self.visionResults : list[list[VisionObject]] = [[],[],[],[],[],[],[]]
-        """2d array containing all of the vision objects the sensor found this cycle"""
-        self.largestObject = None
-        """the largest object the vision sensor saw this cycle"""
-        self.largestVisionObjectType = 0
-        """the (0 indexed) id of the signature of the largest object found this cycle"""
-
-        self.locatedVisionObjects : list[LocatedVisionObject] = []
-        """visionResults list converted to a single list of LocatedVisionObject"""
-        self.averageLargestObject : LocatedVisionObject | None = None
-        """largest vision object averaged over 50 cycles"""
-        self.pastLargestLocatedObjects : list[LocatedVisionObject] = []
-        self.noDetectCounter = 0
-        """cycles since vision object was detected"""
-
-        self.vision = robot.vision
-        self.take_snapshot = self.vision.take_snapshot
-        self.largest_object = self.vision.largest_object
-    
-    def update(self):
-        """updates all information related to vision"""
-        self.largestObject
-        self.largestVisionObjectType
-        self.visionResults
-        self.noDetectCounter
-        self.averageLargestObject
-        self.largestObject = None
-        for sig in range (len(sigList)):
-            minArea = 50 # minimum allowable VisionObject area; smaller is ignored
-            sigResults = self.take_snapshot(sigList[sig])
-            self.visionResults[sig] = []
-
-            if sigResults != None:
-                self.visionResults[sig] = [i for i in sigResults if (i.height*i.width) > minArea] # only allow objects larger than minArea
-                if largestVisionObject == None:                                    # there is not largest yet
-                    largestVisionObject = vision.largest_object()
-                    largestVisionObjectType = sig
-                elif vision.largest_object().height > largestVisionObject.height:  # the new largest is larger than the old largest
-                    largestVisionObject = vision.largest_object()
-                    largestVisionObjectType = sig
-                if largestVisionObject.height*largestVisionObject.width < minArea: # largest is still too small
-                    largestVisionObject = None
-
-        # located objects
-        locatedVisionObjects = []
-        for i in range(3): # don't need to locate anything except the fruits
-            for object in self.visionResults[i]:
-                locatedVisionObjects.append(LocatedVisionObject.fromRaw(sig, object))
-        
-        # moving average largest object
-        if largestVisionObject != None: # if an object exists
-            self.noDetectCounter = 0
-            if len(self.pastLargestLocatedObjects) != 0: # if has contents, insert the new largest
-                self.pastLargestLocatedObjects.insert(0, LocatedVisionObject.fromRaw(largestVisionObjectType, largestVisionObject))
-                if len(self.pastLargestLocatedObjects) > 50: # if too many, remove last
-                    self.pastLargestLocatedObjects.pop()
-            else: # if list is empty, simply add new largest
-                self.pastLargestLocatedObjects.append(LocatedVisionObject.fromRaw(largestVisionObjectType, largestVisionObject))
-            
-            # calculate the average
-            n = len(self.pastLargestLocatedObjects) 
-            self.averageLargestObject = LocatedVisionObject(sum([i.dist for i in self.pastLargestLocatedObjects])/n,
-                                                        sum([i.height for i in self.pastLargestLocatedObjects])/n,
-                                                        sum([i.angleTo for i in self.pastLargestLocatedObjects])/n,
-                                                        self.pastLargestLocatedObjects[0].color,
-                                                        self.pastLargestLocatedObjects[0].fruitType)
-        else: # no object
-            if self.noDetectCounter > 1000000: # 1 second passed with no object : no more averaging
-                self.pastLargestLocatedObjects.clear()
-                self.averageLargestObject = None
-            else:                         # 1 second not yet passed : count time since last detection
-                self.noDetectCounter += dt()
 
 
 times = []
@@ -817,7 +825,7 @@ def stateMachine():
         if controllerButtons.pressed(Buttons.X):
             currentMode = Modes.COLLECTION
 
-        if controllerButtons.pressed(Buttons.L2):
+        if controllerButtons.pressed(Buttons.Y):
             currentMode = Modes.FRUITFOLLOWING
 
     elif currentMode == Modes.TELEOP:
@@ -844,18 +852,17 @@ def stateMachine():
 
     elif currentMode == Modes.FRUITFOLLOWING:
         if camera.largestObject != None:
-            #drivetrain.drive(fruitDistPID.update(largestVisionObject.height).getOutput(), 0, fruitTurnPID.update(largestVisionObject.centerX).getOutput(), True)
-            pass
+            drivetrain.drive(fruitDistPID.update(camera.largestObject.height).getOutput(), 0, fruitTurnPID.update(camera.largestObject.centerX).getOutput(), True)
+            arm.lift(armFruitPID.update(camera.largestObject.height*-1).getOutput())
+            # pass
         else:
             drivetrain.stopAll()
         if controllerButtons.pressed(Buttons.L2):
             currentMode = Modes.DEFAULT
 
     elif currentMode == Modes.COLLECTION:
-        
-        if controllerButtons.pressed(Buttons.X):
-            currentMode = Modes.DEFAULT
-            newState = States.DEFAULT
+        if currentState != States.FRUITFOLLOWING:
+            arm.lift(-20)
         
         if currentState == States.DEFAULT:
             newState = States.WALL_FOLLOWING
@@ -870,10 +877,21 @@ def stateMachine():
                 turnPID.setNewSetpoint(turnPID.setpoint - 90)
             if abs(gyro.orientation(ROLL)) > 8 or abs(gyro.orientation(PITCH)) > 8: # stepped up to a wall without seeing it
                 currentMode = Modes.DEFAULT
+
+            if camera.largestObject != None:
+                newState = States.FRUITFOLLOWING
+        
         elif currentState == States.TURNING:
             drivetrain.drive(0,0,turnPID.getOutput(), True)
             if turnPID.atSetpoint():
                 newState = States.WALL_FOLLOWING
+        
+        elif currentState == States.FRUITFOLLOWING:
+            if camera.largestObject != None:
+                drivetrain.drive(fruitDistPID.update(camera.largestObject.height).getOutput(), 0, fruitTurnPID.update(camera.largestObject.centerX).getOutput(), True)
+                arm.lift(armFruitPID.update(camera.largestObject.height*-1).getOutput())
+            else:
+                newState = States.TURNING
 
 while True:
     # times = []
