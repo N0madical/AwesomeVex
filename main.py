@@ -256,13 +256,16 @@ class Arm:
         self.gripper = gripper
         self.gripperStatus : int = 2
         """1 => open, -1 => closed, 0 => moving, 2 => undefined"""
-        self.gripperCommand = 0
+        self.gripperCommand = 2
         """1 => open, -1 => closed, 0 => no command"""
         self.gripperCommandTimer = 0
         self.driving = False
         self.active = False
         """Reset every cycle. Used to automatically stop motors when not recieving input. \n
         Drivetrain.driving should be used to determine if the drivetrain is in active use."""
+
+        self.gripper.set_max_torque(0.5, TorqueUnits.NM)
+            
 
     def lift(self, velocity):
         self.active = True
@@ -272,43 +275,75 @@ class Arm:
     def stop(self):
         self.liftGroup.stop()
         self.driving = False
-    def zero(self)
+    def zero(self):
+        """Call until arm is zerored, when arm is zeroes will return True"""
+        if(self.liftGroup.torque(TorqueUnits.NM) < 0.8):
+            self.lift(-10)
+            return False
+        else:
+            return True
 
     def open(self):
-        self.gripperCommand = 1
-        self.gripperCommandTimer = 0
-    def close(self):
         self.gripperCommand = -1
         self.gripperCommandTimer = 0
+    def close(self):
+        self.gripperCommand = 1
+        self.gripperCommandTimer = 0
     def updateGripper(self):
-        if self.gripperCommand == self.gripperStatus:
-            self.gripperCommand = 0
-        if self.gripperCommand != 0:
-            self.gripperCommandTimer += dt()
-            #self.gripper.spin_for(FORWARD, 1, TimeUnits.SECONDS, 50, PERCENT)
-            self.gripper.spin(FORWARD, self.gripperCommand * 50, RPM)
-            if self.gripperStatus != 0 and abs(self.gripper.velocity(RPM)) > 20 and self.gripperCommandTimer > 250000: # reach a minimun speed, 0.1 second minimum time
-                self.gripperStatus = 0
-        if self.gripperStatus == 0 and abs(self.gripper.velocity(RPM)) < 5 and self.gripperCommandTimer > 500000: # check for stopped
-            self.gripper.stop()
-            self.gripperStatus = self.gripperCommand
-            self.gripperCommand = 0
-        # if self.gripper.current() > 0.5 and abs(self.gripper.velocity()) < 1: # safety in case the rest of the code breaks
+        if(self.gripperCommand == 2):
+            self.gripper.spin(FORWARD, 40, RPM)
+            if(self.gripper.torque() > 0.3): # or (self.gripper.torque() > 0.4 and self.gripper.temperature() > 0)):
+                self.gripper.set_position(2, DEGREES)
+                self.gripperCommand = 0
+            print("nooooo")
+
+        if self.gripperCommand == 1:
+            if(self.gripper.position(DEGREES) < 0):
+                self.gripper.spin(FORWARD)
+                print("spinup")
+            else:
+                self.gripperCommand = 0
+            
+
+        if self.gripperCommand == -1:
+            if(self.gripper.position(DEGREES) > -180):
+                self.gripper.spin(REVERSE)
+                print("spindown")
+            else:
+                self.gripperCommand = 0
+            
+
+        Printer.add(("Gripper Pos: " + str(self.gripper.position(DEGREES))), 0, 8)
+
+        # if abs(self.gripperCommand) == 1:
+        #     self.gripperCommandTimer += dt()
+        #     #self.gripper.spin_for(FORWARD, 1, TimeUnits.SECONDS, 50, PERCENT)
+        #     self.gripper.spin(FORWARD, self.gripperCommand * 50, RPM)
+        #     print("Why")
+
+        # if self.gripperStatus == 0 and abs(self.gripper.velocity(RPM)) < 5 and self.gripperCommandTimer > 500000: # check for stopped
         #     self.gripper.stop()
+        #     self.gripperStatus = self.gripperCommand
         #     self.gripperCommand = 0
+        
+        # if self.gripperCommandTimer > 1500000: # 1.5 sec timeout
+        #     self.gripperCommand = 0
+        #     self.gripper.stop()
         #     self.gripperStatus = 2
-        if self.gripperCommandTimer > 1500000: # 1.5 sec timeout
-            self.gripperCommand = 0
-            self.gripper.stop()
-            self.gripperStatus = 2
+        #     print("Hrm2..")
+
+        # if (self.gripper.position(DEGREES) < -200 or self.gripper.position(DEGREES) > 0) and abs(self.gripperCommand) == 1:
+        #     self.gripper.stop()
+        #     self.gripperStatus = self.gripperCommand
+        #     self.gripperCommand = 0
+        #     print("Hrm..")
+
         if self.gripperCommand == 0:
             self.gripper.stop()
 
-
 class Camera:
     """Class to handle robot vision"""
-
-    def __init__(self, visionObject):
+    def __init__(self, visionObject : Vision):
         self.visionResults : list[list[VisionObject]] = [[],[],[],[],[],[],[]]
         """2d array containing all of the vision objects the sensor found this cycle"""
         self.largestObject = None
@@ -382,7 +417,6 @@ class Camera:
             else:                         # 1 second not yet passed : count time since last detection
                 self.noDetectCounter += dt()
 
-
 class Robot:
     def __init__(self, PortMotorFL, PortMotorFR, PortMotorBL, PortMotorBR, PortMotorTRAY, PortGyro, PortVision, PortArmL, PortArmR, PortGripper, PortSonarB : Triport.TriportPort, PortSonarR : Triport.TriportPort):
         """initializes the hardware components of the robot"""
@@ -432,7 +466,7 @@ class Robot:
     def toggleTray(self):
         """Moves the fruit tray up and down"""
         if self.trayState == 0:
-            self.motor_TRAY.spin_to_position(-90, DEGREES, False)
+            self.motor_TRAY.spin_to_position(-100, DEGREES, False)
             self.trayState = 1
         else:
             self.motor_TRAY.spin_to_position(0, DEGREES, False)
@@ -514,15 +548,15 @@ class Printer:
         Printer.add(("SB:" + str(sonarB.distance(MM)) + ", SR:" + str(robot.sonarR.distance(MM))), location, index)
     
     @classmethod
-    def add(cls, s : str, location : int, index : int):
+    def add(cls, s, location : int, index : int):
         """
         Adds str to be printed at index \n
         Brain Indexes: 0-8
         """
         if location == 0:
-            cls.brainList[index] = (s)
+            cls.brainList[index] = (str(s))
         elif location == 1:
-            cls.controllerList[index] = (s)
+            cls.controllerList[index] = (str(s))
         #else:
 
     @classmethod
@@ -693,9 +727,9 @@ fruitDistPID = PID(5,0,1, 100, None, False)
 fruitDistPID.unbind()
 fruitDistPID.setNewSetpoint(35)
 
-armFruitPID = PID(5,0,1, 100, None, False)
+armFruitPID = PID(5,0,1, 20, None, False)
 armFruitPID.unbind()
-armFruitPID.setNewSetpoint(0)
+armFruitPID.setNewSetpoint(150)
 
 wallPID = PID(1, 0, 1, 150, lambda : sonarB.distance(MM), False, False)
 wallPID.setNewSetpoint(200)
@@ -731,7 +765,6 @@ class LocatedVisionObject:
                                    color, fruitType) 
     def __str__(self) -> str:
         return "Dist:"+str(self.dist)+", Height:"+str(self.height)+", Angle:"+str(self.angleTo)+", Type:"+str(self.fruitType)+", Color:"+str(self.color)
-
 
 times = []
 timeUsage = []
@@ -793,7 +826,7 @@ def stateMachine():
 
     global newState
 
-    if controllerButtons.pressed(Buttons.B): # exit button
+    if controllerButtons.pressed(Buttons.B): # exit button -- Do NOT remove, for safety
         newState = States.DEFAULT
         currentMode = Modes.DEFAULT
 
@@ -853,7 +886,7 @@ def stateMachine():
     elif currentMode == Modes.FRUITFOLLOWING:
         if camera.largestObject != None:
             drivetrain.drive(fruitDistPID.update(camera.largestObject.height).getOutput(), 0, fruitTurnPID.update(camera.largestObject.centerX).getOutput(), True)
-            arm.lift(armFruitPID.update(camera.largestObject.height*-1).getOutput())
+            arm.lift(armFruitPID.update(camera.largestObject.centerY).getOutput())
             # pass
         else:
             drivetrain.stopAll()
@@ -862,7 +895,9 @@ def stateMachine():
 
     elif currentMode == Modes.COLLECTION:
         if currentState != States.FRUITFOLLOWING:
-            arm.lift(-20)
+            """Put the arm back down after you get the fruit :()"""
+            if(arm.zero() == True):
+                currentState = States.WALL_FOLLOWING
         
         if currentState == States.DEFAULT:
             newState = States.WALL_FOLLOWING
@@ -880,6 +915,7 @@ def stateMachine():
 
             if camera.largestObject != None:
                 newState = States.FRUITFOLLOWING
+                armFruitPID.reset()
         
         elif currentState == States.TURNING:
             drivetrain.drive(0,0,turnPID.getOutput(), True)
@@ -889,7 +925,7 @@ def stateMachine():
         elif currentState == States.FRUITFOLLOWING:
             if camera.largestObject != None:
                 drivetrain.drive(fruitDistPID.update(camera.largestObject.height).getOutput(), 0, fruitTurnPID.update(camera.largestObject.centerX).getOutput(), True)
-                arm.lift(armFruitPID.update(camera.largestObject.height*-1).getOutput())
+                arm.lift(armFruitPID.update(camera.largestObject.centerY).getOutput())
             else:
                 newState = States.TURNING
 
@@ -917,6 +953,8 @@ while True:
         drivetrain.stopAll()
     if not arm.active:
         arm.stop()
+
+    Printer.add(str(armFruitPID.getOutput()), 0, 7)
 
 # timing
     prevSystemTime = systemTime
