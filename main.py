@@ -21,7 +21,7 @@ dt = lambda : systemTime - prevSystemTime
 
 class States:
     """List of states."""
-    DEFAULT = "DEFAULT"     # There must be a better way to do this, 
+    DEFAULT = "DEFAULT"     # There must be a better way to do this, but this was the best way I could find to make the states indexable with 'States.*' and be reversible back to the state name.
     # MOUNDDIST = "WAITING FOR LEFT MOUND"
     # AWAITMOUND = "AWAITING MOUND"
     # AWAITWALL = "AWAITING WALL"
@@ -36,7 +36,7 @@ class Modes:
     """List of Modes."""
     NAVIGATE = "NAVIGATE"
     DEFAULT = "DEFAULT"
-    TELEOP = "TELEOP" # but this was the best way I could find to make the states indexable with 'States.*' and be reversible back to the state name.
+    TELEOP = "TELEOP"
     FRUITFOLLOWING = "Fruit Following"
     CALIBRATE = "Calibrating Gyro"
     COLLECTION = "Collecting Fruit"
@@ -49,130 +49,6 @@ newState = None
 returnState = None
 returnMode = None
 # moundDist = 0 # used only for lab 2? 3? navigation
-
-cameraConfig = {
-  "brightness": 60,
-  "signatures": [
-    {
-      "name": "SIG_1",
-      "parameters": {
-        "uMin": -4941,
-        "uMax": -3581,
-        "uMean": -4261,
-        "vMin": -3543,
-        "vMax": -2871,
-        "vMean": -3207,
-        "rgb": 3097909,
-        "type": 0,
-        "name": "SIG_1"
-      },
-      "range": 5.4
-    },
-    {
-      "name": "SIG_2",
-      "parameters": {
-        "uMin": 6697,
-        "uMax": 7791,
-        "uMean": 7244,
-        "vMin": -2431,
-        "vMax": -2123,
-        "vMean": -2277,
-        "rgb": 12939350,
-        "type": 0,
-        "name": "SIG_2"
-      },
-      "range": 5.8
-    },
-    {
-      "name": "SIG_3",
-      "parameters": {
-        "uMin": 2379,
-        "uMax": 3059,
-        "uMean": 2719,
-        "vMin": -3455,
-        "vMax": -3149,
-        "vMean": -3302,
-        "rgb": 10847840,
-        "type": 0,
-        "name": "SIG_3"
-      },
-      "range": 4.6
-    },
-    {
-      "name": "SIG_4",
-      "parameters": {
-        "uMin": 6523,
-        "uMax": 7249,
-        "uMean": 6886,
-        "vMin": 451,
-        "vMax": 811,
-        "vMean": 631,
-        "rgb": 10902628,
-        "type": 0,
-        "name": "SIG_4"
-      },
-      "range": 4.2
-    },
-    {
-      "name": "SIG_5",
-      "parameters": {
-        "uMin": 0,
-        "uMax": 0,
-        "uMean": 0,
-        "vMin": 0,
-        "vMax": 0,
-        "vMean": 0,
-        "rgb": 0,
-        "type": 0,
-        "name": "SIG_5"
-      },
-      "range": 2.5
-    },
-    {
-      "name": "SIG_6",
-      "parameters": {
-        "uMin": 0,
-        "uMax": 0,
-        "uMean": 0,
-        "vMin": 0,
-        "vMax": 0,
-        "vMean": 0,
-        "rgb": 0,
-        "type": 0,
-        "name": "SIG_6"
-      },
-      "range": 2.5
-    },
-    {
-      "name": "SIG_7",
-      "parameters": {
-        "uMin": 0,
-        "uMax": 0,
-        "uMean": 0,
-        "vMin": 0,
-        "vMax": 0,
-        "vMean": 0,
-        "rgb": 0,
-        "type": 0,
-        "name": "SIG_7"
-      },
-      "range": 2.5
-    }
-  ],
-  "codes": []
-}
-
-sigList : list[Signature] = []
-sigDataOrder = ["uMin", "uMax", "uMean", "vMin", "vMax", "vMean"]
-print("Vision Definition Data")
-for i in range(len(cameraConfig["signatures"])): 
-    sig = cameraConfig["signatures"][i]
-    sigData : list[int] = [i+1]
-    sigData.extend([sig["parameters"][k] for k in sigDataOrder])
-    sigData.append(sig["range"])
-    sigData.append(sig["parameters"]["type"])
-    print(sigData)
-    sigList.append(Signature(*sigData))
 
 class Drivetrain:
     def __init__(self, gyro : Inertial):
@@ -354,8 +230,137 @@ class Arm:
             self.gripper.stop()
 
 class Camera:
+    """Stores all data relating to the camera and vision processing"""
+    cameraConfig = {
+        "brightness": 60,
+        "signatures": [
+            {
+            "name": "SIG_1",
+            "parameters": {
+                "uMin": -4941,
+                "uMax": -3581,
+                "uMean": -4261,
+                "vMin": -3543,
+                "vMax": -2871,
+                "vMean": -3207,
+                "rgb": 3097909,
+                "type": 0,
+                "name": "SIG_1"
+            },
+            "range": 5.4
+            },
+            {
+            "name": "SIG_2",
+            "parameters": {
+                "uMin": 6697,
+                "uMax": 7791,
+                "uMean": 7244,
+                "vMin": -2431,
+                "vMax": -2123,
+                "vMean": -2277,
+                "rgb": 12939350,
+                "type": 0,
+                "name": "SIG_2"
+            },
+            "range": 5.8
+            },
+            {
+            "name": "SIG_3",
+            "parameters": {
+                "uMin": 2379,
+                "uMax": 3059,
+                "uMean": 2719,
+                "vMin": -3455,
+                "vMax": -3149,
+                "vMean": -3302,
+                "rgb": 10847840,
+                "type": 0,
+                "name": "SIG_3"
+            },
+            "range": 4.6
+            },
+            {
+            "name": "SIG_4",
+            "parameters": {
+                "uMin": 6523,
+                "uMax": 7249,
+                "uMean": 6886,
+                "vMin": 451,
+                "vMax": 811,
+                "vMean": 631,
+                "rgb": 10902628,
+                "type": 0,
+                "name": "SIG_4"
+            },
+            "range": 4.2
+            },
+            {
+            "name": "SIG_5",
+            "parameters": {
+                "uMin": 0,
+                "uMax": 0,
+                "uMean": 0,
+                "vMin": 0,
+                "vMax": 0,
+                "vMean": 0,
+                "rgb": 0,
+                "type": 0,
+                "name": "SIG_5"
+            },
+            "range": 2.5
+            },
+            {
+            "name": "SIG_6",
+            "parameters": {
+                "uMin": 0,
+                "uMax": 0,
+                "uMean": 0,
+                "vMin": 0,
+                "vMax": 0,
+                "vMean": 0,
+                "rgb": 0,
+                "type": 0,
+                "name": "SIG_6"
+            },
+            "range": 2.5
+            },
+            {
+            "name": "SIG_7",
+            "parameters": {
+                "uMin": 0,
+                "uMax": 0,
+                "uMean": 0,
+                "vMin": 0,
+                "vMax": 0,
+                "vMean": 0,
+                "rgb": 0,
+                "type": 0,
+                "name": "SIG_7"
+            },
+            "range": 2.5
+            }
+        ],
+        "codes": []
+        }
+    
+    @classmethod
+    def createSigList(cls):
+        sigList : list[Signature] = []
+        sigDataOrder = ["uMin", "uMax", "uMean", "vMin", "vMax", "vMean"]
+        print("Vision Definition Data")
+        for i in range(len(Camera.cameraConfig["signatures"])): 
+            sig = Camera.cameraConfig["signatures"][i]
+            sigData : list[int] = [i+1]
+            sigData.extend([sig["parameters"][k] for k in sigDataOrder])
+            sigData.append(sig["range"])
+            sigData.append(sig["parameters"]["type"])
+            print(sigData)
+            sigList.append(Signature(*sigData))
+        return sigList
+
     """Class to handle robot vision"""
-    def __init__(self, visionObject : Vision):
+    def __init__(self, PortVision):
+
         self.visionResults : list[list[VisionObject]] = [[],[],[],[],[],[],[]]
         """2d array containing all of the vision objects the sensor found this cycle"""
         self.largestObject = None
@@ -371,21 +376,22 @@ class Camera:
         self.noDetectCounter = 0
         """cycles since vision object was detected"""
 
-        self.vision = visionObject
+        self.sigList = Camera.createSigList()
+        self.vision = Vision(PortVision, Camera.cameraConfig["brightness"], *self.sigList)
         self.take_snapshot = self.vision.take_snapshot
         self.largest_object = self.vision.largest_object
     
     def update(self):
         """updates all information related to vision"""
-        self.largestObject
-        self.largestObjectType
-        self.visionResults
-        self.noDetectCounter
-        self.averageLargestObject
+        # self.largestObject
+        # self.largestObjectType
+        # self.visionResults
+        # self.noDetectCounter
+        # self.averageLargestObject
         self.largestObject = None
-        for sig in range (len(sigList)):
+        for sig in range (len(self.sigList)):
             minArea = 50 # minimum allowable VisionObject area; smaller is ignored
-            sigResults = self.take_snapshot(sigList[sig])
+            sigResults = self.take_snapshot(self.sigList[sig])
             self.visionResults[sig] = []
 
             if sigResults != None:
@@ -393,7 +399,7 @@ class Camera:
                 if self.largestObject == None:                                    # there is not largest yet
                     self.largestObject = self.vision.largest_object()
                     self.largestObjectType = sig
-                elif vision.largest_object().height > self.largestObject.height:  # the new largest is larger than the old largest
+                elif self.vision.largest_object().height > self.largestObject.height:  # the new largest is larger than the old largest
                     self.largestObject = self.vision.largest_object()
                     self.largestObjectType = sig
                 if self.largestObject.height*self.largestObject.width < minArea: # largest is still too small
@@ -429,6 +435,38 @@ class Camera:
             else:                         # 1 second not yet passed : count time since last detection
                 self.noDetectCounter += dt()
 
+class LocatedVisionObject:
+    """Custom class for vision objects. The VEX default uses pixel positions. This does the math to get distance and relative height in cm."""
+    def __init__(self, dist : float, height : float, angleTo : float, color : int, fruitType : int) -> None:
+        """default constructor - not intended for general use. Use LocatedVisionObject.fromRaw() instead."""
+        self.dist = dist
+        """striaght line distance to fruit (not horizontal distance)"""
+        self.height = height
+        """height of fruit from ground in mm"""
+        self.angleTo = angleTo
+        """horizontal angle to the fruit in degrees (right of center positive)"""
+        self.color = color
+        """integer representing the signature used to find the fruit"""
+        self.fruitType = fruitType
+        """0 for small fruit, 1 for large fruit"""
+    @classmethod
+    def fromRaw(cls, color : int, object : VisionObject):
+        """takes in data from a VEX standard VisionObject and converts the pixel values into actual distances in cm."""
+        if object.width/object.height > 0.9:
+            fruitRadius = 4.45 # radius in cm
+            fruitType = 1      # wide fruit
+        else:
+            fruitRadius = 2.86 # radius in cm
+            fruitType = 0      # narrow fruit
+        halfAngleRadians = 0.00337 * object.width / 2 + 0.01 # +0.01 is a minor correction to improve distance accuracy
+        dist = fruitRadius/math.sin(halfAngleRadians)
+        return LocatedVisionObject(dist, 
+                                   math.sin((137-object.centerY) * 0.00337) * dist, # (106-object.centerY) * 0.00337); 106 is the center, 137 corrects the angle of the camera
+                                   ((object.centerX - 158) * 0.19), 
+                                   color, fruitType) 
+    def __str__(self) -> str:
+        return "Dist:"+str(self.dist)+", Height:"+str(self.height)+", Angle:"+str(self.angleTo)+", Type:"+str(self.fruitType)+", Color:"+str(self.color)
+
 class Robot:
     def __init__(self, PortMotorFL, PortMotorFR, PortMotorBL, PortMotorBR, PortMotorTRAY, PortGyro, PortVision, PortArmL, PortArmR, PortGripper, PortSonarB : Triport.TriportPort, PortSonarR : Triport.TriportPort):
         """initializes the hardware components of the robot"""
@@ -447,22 +485,22 @@ class Robot:
         
         gyroPos1 = 0
         gyroPos2 = 1
-        while abs(gyroPos1 - gyroPos2) > 0.2:
+        while abs(gyroPos1 - gyroPos2) > 0.05:
             print("attempting gyro calibration")
             self.gyro.calibrate()
             while(self.gyro.is_calibrating()):
                 sleep(10)
             self.gyro.reset_rotation()
+            sleep(1000)
             gyroPos1 = self.gyro.heading()
-            sleep(2000)
+            sleep(1000)
             gyroPos2 = self.gyro.heading()
         
         self.gyro.reset_rotation()
         self.sonarR = Sonar(PortSonarR) # uses 3wire a/b pair, so set to use a (first port of pair)
         self.sonarB = Sonar(PortSonarB)
         self.drivetrain = Drivetrain(self.gyro)
-        self.vision = Vision(PortVision, cameraConfig["brightness"], *sigList)
-        self.camera = Camera(self.vision)
+        self.camera = Camera(PortVision)
 
         # lineL = Line(brain.three_wire_port.e)
         # lineR = Line(brain.three_wire_port.f)
@@ -485,14 +523,13 @@ class Robot:
             self.trayState = 0
 
 # ports as ints are 0 indexed, but are 1 indexed on the brain and using 'Ports.Port_' notation
-robot = Robot(0, 1, 2, 3, 9, 8, 18, 5, 6, 19, brain.three_wire_port.c, brain.three_wire_port.a) # TODO: fix gripper port number
+robot = Robot(0, 1, 2, 3, 9, 8, 18, 5, 6, 19, brain.three_wire_port.c, brain.three_wire_port.a)
 """container for all robot hardware objects"""
 
 gyro = robot.gyro
 sonarR = robot.sonarR
 sonarB = robot.sonarB
 drivetrain = robot.drivetrain
-vision = robot.vision
 camera = robot.camera
 arm = robot.arm
 
@@ -746,48 +783,19 @@ armFruitPID.setNewSetpoint(150)
 wallPID = PID(1, 0, 1, 150, lambda : sonarB.distance(MM), False, False)
 wallPID.setNewSetpoint(200)
 
-class LocatedVisionObject:
-    """Custom class for vision objects. The VEX default uses pixel positions. This does the math to get distance and relative height in cm."""
-    def __init__(self, dist : float, height : float, angleTo : float, color : int, fruitType : int) -> None:
-        """default constructor - not intended for general use. Use LocatedVisionObject.fromRaw() instead."""
-        self.dist = dist
-        """striaght line distance to fruit (not horizontal distance)"""
-        self.height = height
-        """height of fruit from ground in mm"""
-        self.angleTo = angleTo
-        """horizontal angle to the fruit in degrees (right of center positive)"""
-        self.color = color
-        """integer representing the signature used to find the fruit"""
-        self.fruitType = fruitType
-        """0 for small fruit, 1 for large fruit"""
+class TimeLogger:
+    times = []
+    timeUsage = []
     @classmethod
-    def fromRaw(cls, color : int, object : VisionObject):
-        """takes in data from a VEX standard VisionObject and converts the pixel values into actual distances in cm."""
-        if object.width/object.height > 0.9:
-            fruitRadius = 4.45 # radius in cm
-            fruitType = 1      # wide fruit
-        else:
-            fruitRadius = 2.86 # radius in cm
-            fruitType = 0      # narrow fruit
-        halfAngleRadians = 0.00337 * object.width / 2 + 0.01 # +0.01 is a minor correction to improve distance accuracy
-        dist = fruitRadius/math.sin(halfAngleRadians)
-        return LocatedVisionObject(dist, 
-                                   math.sin((137-object.centerY) * 0.00337) * dist, # (106-object.centerY) * 0.00337); 106 is the center, 137 corrects the angle of the camera
-                                   ((object.centerX - 158) * 0.19), 
-                                   color, fruitType) 
-    def __str__(self) -> str:
-        return "Dist:"+str(self.dist)+", Height:"+str(self.height)+", Angle:"+str(self.angleTo)+", Type:"+str(self.fruitType)+", Color:"+str(self.color)
-
-times = []
-timeUsage = []
-
-def timer():
-    times.append(brain.timer.system_high_res())
-
-def timeUsageCalc():
-    timeUsage.clear()
-    for i in range(len(times)-1):
-        timeUsage.append(times[i+1]-times[i])
+    def time(cls):
+        """records the current time to the timing list"""
+        cls.times.append(brain.timer.system_high_res())
+    @classmethod
+    def timeUsageCalc(cls):
+        """calculates the time for each item this cycle using the timing list"""
+        cls.timeUsage.clear()
+        for i in range(len(cls.times)-1):
+            cls.timeUsage.append(cls.times[i+1]-cls.times[i])
 
 def globalPrinter():
     """Method to print in another thread. Always use this to print everything."""
@@ -817,6 +825,7 @@ def globalPrinter():
         Printer.addGyro(0,2)
         Printer.add("DT:" + str(dt()), 0, 3)
         Printer.add("Pos: (" + str(drivetrain.robotPos[0])+", "+str(drivetrain.robotPos[1])+")", 0, 6)
+        Printer.add(str(armFruitPID.getOutput()), 0, 7)
 
         Printer.print()
         printThread.sleep_for(50)
@@ -984,5 +993,5 @@ while True:
     systemTime = brain.timer.system_high_res()
 
 # logged time usage
-    #timeUsageCalc()
-    #print("timeUsage:", timeUsage)
+    #TimeLogger.timeUsageCalc()
+    #print("timeUsage:", TimeLogger.timeUsage)
