@@ -139,6 +139,8 @@ class Arm:
         self.gripperCommandTimer = 0
         self.driving = False
         self.active = False
+        self.prevJawVel = 0
+        self.prevArmVel = 0
         """Reset every cycle. Used to automatically stop motors when not recieving input. \n
         Drivetrain.driving should be used to determine if the drivetrain is in active use."""
 
@@ -155,29 +157,22 @@ class Arm:
         self.driving = False
     def zero(self):
         """Call until arm is zerored, when arm is zeroes will return True"""
-        if(self.liftGroup.torque(TorqueUnits.NM) < 0.5):
+        if not (self.liftGroup.velocity(RPM) > -1 and self.prevArmVel < -1):
             self.lift(-10)
+            self.prevArmVel = self.liftGroup.velocity(RPM)
             return False
         else:
+            self.prevArmVel = 0
             return True
 
     def open(self):
         self.gripperCommand = -1
         self.gripperCommandTimer = 0
-        if (self.gripperCommand == 0):
-            return True
-        else:
-            return False
     def close(self):
         self.gripperCommand = 1
         self.gripperCommandTimer = 0
-        if(self.liftGroup.torque(TorqueUnits.NM) > 0.3):
-            self.gripperCommand = 0
-            return True
-        else:
-            return False
     def updateGripper(self):
-        if(self.gripperCommand == 2):
+        if self.gripperCommand == 2:
             self.gripper.spin(FORWARD, 40, RPM)
             if(self.gripper.torque() > 0.3): # or (self.gripper.torque() > 0.4 and self.gripper.temperature() > 0)):
                 self.gripper.set_position(2, DEGREES)
@@ -185,21 +180,23 @@ class Arm:
             print("nooooo")
 
         if self.gripperCommand == 1:
-            if(self.gripper.position(DEGREES) < 0):
-                self.gripper.spin(FORWARD)
+            if(self.gripper.position(DEGREES) < 0 and not (self.gripper.velocity(RPM) < 1 and self.prevJawVel > 1)):
+                self.gripper.spin(FORWARD, 50, RPM)
+                self.prevJawVel = self.gripper.velocity(RPM)
                 print("spinup")
             else:
                 self.gripperCommand = 0
+                self.prevJawVel = 0
             
 
         if self.gripperCommand == -1:
-            if(self.gripper.position(DEGREES) > -160):
-                self.gripper.spin(REVERSE)
+            if(self.gripper.position(DEGREES) > -140):
+                self.gripper.spin(REVERSE, 50, RPM)
                 print("spindown")
             else:
                 self.gripperCommand = 0
             
-        Printer.add(("Gripper Command: " + str(self.gripperCommand)), 0, 7)
+        Printer.add(("JawVel: " + str(self.prevJawVel)), 0, 7)
         Printer.add(("Arm Speed: " + str(self.liftGroup.velocity(RPM))), 0, 8)
         Printer.add(("Gripper Speed: " + str(self.gripper.velocity(RPM))), 0, 9)
 
@@ -774,7 +771,7 @@ fruitTurnPID.setNewSetpoint(160)
 
 fruitDistPID = PID(5,0,1, 100, None, False)
 fruitDistPID.unbind()
-fruitDistPID.setNewSetpoint(190)
+fruitDistPID.setNewSetpoint(220)
 
 armFruitPID = PID(5,0,1, 50, None, False)
 armFruitPID.unbind()
@@ -825,7 +822,6 @@ def globalPrinter():
         Printer.addGyro(0,2)
         Printer.add("DT:" + str(dt()), 0, 3)
         Printer.add("Pos: (" + str(drivetrain.robotPos[0])+", "+str(drivetrain.robotPos[1])+")", 0, 6)
-        Printer.add(str(armFruitPID.getOutput()), 0, 7)
 
         Printer.print()
         printThread.sleep_for(50)
@@ -910,20 +906,19 @@ def stateMachine():
             if camera.largestObject != None:
                 drivetrain.drive(fruitDistPID.update(camera.largestObject.height).getOutput(), 0, fruitTurnPID.update(camera.largestObject.centerX).getOutput(), True)
                 arm.lift(armFruitPID.update(camera.largestObject.centerY).getOutput())
-                if(armFruitPID.atSetpoint(20, camera.largestObject.height)):
+                arm.open()
+                if(armFruitPID.atSetpoint(5, camera.largestObject.height)):
+                    arm.close()
                     newState = States.CLOSING
-                else:
-                    arm.open()
-                # pass
             else:
                 drivetrain.stopAll()
         elif currentState == States.CLOSING:
-            if(arm.close()):
+            if(arm.gripperCommand == 0):
                 newState = States.DROPFRUIT
         elif currentState == States.DROPFRUIT:
             if(arm.zero()):
                 arm.open()
-                newState = States.DROPFRUIT
+                newState = States.FRUITFOLLOWING
 
 
     elif currentMode == Modes.COLLECTION:
