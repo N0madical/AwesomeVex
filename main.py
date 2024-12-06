@@ -30,6 +30,8 @@ class States:
     WALL_FOLLOWING = "Following Wall"
     TURNING = "Turning"
     FRUITFOLLOWING = "Fruit Grabbing"
+    DROPFRUIT = "Placing fruit in tray"
+    CLOSING = "Closing Gripper"
 class Modes:
     """List of Modes."""
     NAVIGATE = "NAVIGATE"
@@ -277,7 +279,7 @@ class Arm:
         self.driving = False
     def zero(self):
         """Call until arm is zerored, when arm is zeroes will return True"""
-        if(self.liftGroup.torque(TorqueUnits.NM) < 0.8):
+        if(self.liftGroup.torque(TorqueUnits.NM) < 0.5):
             self.lift(-10)
             return False
         else:
@@ -286,9 +288,18 @@ class Arm:
     def open(self):
         self.gripperCommand = -1
         self.gripperCommandTimer = 0
+        if (self.gripperCommand == 0):
+            return True
+        else:
+            return False
     def close(self):
         self.gripperCommand = 1
         self.gripperCommandTimer = 0
+        if(self.liftGroup.torque(TorqueUnits.NM) > 0.3):
+            self.gripperCommand = 0
+            return True
+        else:
+            return False
     def updateGripper(self):
         if(self.gripperCommand == 2):
             self.gripper.spin(FORWARD, 40, RPM)
@@ -306,14 +317,15 @@ class Arm:
             
 
         if self.gripperCommand == -1:
-            if(self.gripper.position(DEGREES) > -180):
+            if(self.gripper.position(DEGREES) > -160):
                 self.gripper.spin(REVERSE)
                 print("spindown")
             else:
                 self.gripperCommand = 0
             
-
-        Printer.add(("Gripper Pos: " + str(self.gripper.position(DEGREES))), 0, 8)
+        Printer.add(("Gripper Command: " + str(self.gripperCommand)), 0, 7)
+        Printer.add(("Arm Speed: " + str(self.liftGroup.velocity(RPM))), 0, 8)
+        Printer.add(("Gripper Speed: " + str(self.gripper.velocity(RPM))), 0, 9)
 
         # if abs(self.gripperCommand) == 1:
         #     self.gripperCommandTimer += dt()
@@ -725,9 +737,9 @@ fruitTurnPID.setNewSetpoint(160)
 
 fruitDistPID = PID(5,0,1, 100, None, False)
 fruitDistPID.unbind()
-fruitDistPID.setNewSetpoint(35)
+fruitDistPID.setNewSetpoint(190)
 
-armFruitPID = PID(5,0,1, 20, None, False)
+armFruitPID = PID(5,0,1, 50, None, False)
 armFruitPID.unbind()
 armFruitPID.setNewSetpoint(150)
 
@@ -860,6 +872,7 @@ def stateMachine():
 
         if controllerButtons.pressed(Buttons.Y):
             currentMode = Modes.FRUITFOLLOWING
+            newState = States.FRUITFOLLOWING
 
     elif currentMode == Modes.TELEOP:
         # do
@@ -884,14 +897,25 @@ def stateMachine():
             newState = States.DEFAULT
 
     elif currentMode == Modes.FRUITFOLLOWING:
-        if camera.largestObject != None:
-            drivetrain.drive(fruitDistPID.update(camera.largestObject.height).getOutput(), 0, fruitTurnPID.update(camera.largestObject.centerX).getOutput(), True)
-            arm.lift(armFruitPID.update(camera.largestObject.centerY).getOutput())
-            # pass
-        else:
-            drivetrain.stopAll()
-        if controllerButtons.pressed(Buttons.L2):
-            currentMode = Modes.DEFAULT
+        if currentState == States.FRUITFOLLOWING:
+            if camera.largestObject != None:
+                drivetrain.drive(fruitDistPID.update(camera.largestObject.height).getOutput(), 0, fruitTurnPID.update(camera.largestObject.centerX).getOutput(), True)
+                arm.lift(armFruitPID.update(camera.largestObject.centerY).getOutput())
+                if(armFruitPID.atSetpoint(20, camera.largestObject.height)):
+                    newState = States.CLOSING
+                else:
+                    arm.open()
+                # pass
+            else:
+                drivetrain.stopAll()
+        elif currentState == States.CLOSING:
+            if(arm.close()):
+                newState = States.DROPFRUIT
+        elif currentState == States.DROPFRUIT:
+            if(arm.zero()):
+                arm.open()
+                newState = States.DROPFRUIT
+
 
     elif currentMode == Modes.COLLECTION:
         if currentState != States.FRUITFOLLOWING:
@@ -953,8 +977,6 @@ while True:
         drivetrain.stopAll()
     if not arm.active:
         arm.stop()
-
-    Printer.add(str(armFruitPID.getOutput()), 0, 7)
 
 # timing
     prevSystemTime = systemTime
