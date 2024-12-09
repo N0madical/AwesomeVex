@@ -143,7 +143,6 @@ class Arm:
         self.active = False
         self.prevJawVel = 0
         self.prevArmVel = 0
-        self.zeroed = False
         """Reset every cycle. Used to automatically stop motors when not recieving input. \n
         Drivetrain.driving should be used to determine if the drivetrain is in active use."""
 
@@ -160,20 +159,13 @@ class Arm:
     def zero(self):
         """Call until arm is zerored, when arm is zeroes will return True"""
         if not (self.liftGroup.velocity(RPM) > -1 and self.prevArmVel < -1):
-            self.lift(-50)
+            self.lift(-10)
             self.prevArmVel = self.liftGroup.velocity(RPM)
             return False
         else:
             self.prevArmVel = 0
-            self.liftGroup.set_position(0, TURNS)
-            self.zeroed = True
             return True
 
-    def goDefault(self):
-        self.active = True
-        self.liftGroup.spin_to_position(1, TURNS, 50, PERCENT, False)
-        return self.liftGroup.is_done()
-    
     def open(self):
         self.gripperCommand = -1
         self.gripperCommandTimer = 0
@@ -183,9 +175,6 @@ class Arm:
         self.gripperCommandTimer = 0
         self.gripperStatus = 0
     def updateGripper(self):
-        if not self.zeroed:
-            self.zero()
-        
         if self.gripperCommand == 2:
             self.gripper.spin(FORWARD, 40, RPM)
             if(self.gripper.torque() > 0.3): # or (self.gripper.torque() > 0.4 and self.gripper.temperature() > 0)):
@@ -205,7 +194,7 @@ class Arm:
 
         if self.gripperCommand == -1  and not (self.gripper.velocity(RPM) > -1 and self.prevJawVel < -1): # modified to prevent stopping against front suspension before completing
             if(self.gripper.position(DEGREES) > -140):
-                self.gripper.spin(REVERSE, 100, RPM)
+                self.gripper.spin(REVERSE, 50, RPM)
                 self.prevJawVel = self.gripper.velocity(RPM)
                 #print("spindown")
             else:
@@ -213,9 +202,9 @@ class Arm:
                 self.prevJawVel = 0 # unused for this command, but added for safety
                 self.gripperStatus = -1
             
-        Printer.add(("JawVel: " + str(self.prevJawVel)), 0, 7)
-        Printer.add(("Arm Speed: " + str(self.liftGroup.velocity(RPM))), 0, 8)
-        Printer.add(("Gripper Speed: " + str(self.gripper.velocity(RPM))), 0, 9)
+        #Printer.add(("JawVel: " + str(self.prevJawVel)), 0, 7)
+        #Printer.add(("Arm Speed: " + str(self.liftGroup.velocity(RPM))), 0, 8)
+        #Printer.add(("Gripper Speed: " + str(self.gripper.velocity(RPM))), 0, 9)
 
         # if abs(self.gripperCommand) == 1:
         #     self.gripperCommandTimer += dt()
@@ -499,7 +488,7 @@ class Robot:
         
         gyroPos1 = 0
         gyroPos2 = 1
-        while abs(gyroPos1 - gyroPos2) > 0.01:
+        while abs(gyroPos1 - gyroPos2) > 0.05:
             print("attempting gyro calibration")
             self.gyro.calibrate()
             while(self.gyro.is_calibrating()):
@@ -529,11 +518,11 @@ class Robot:
 
     def trayUp(self):
         """Moves the fruit tray to the up position"""
-        self.motor_TRAY.spin_to_position(-85, DEGREES, 100, PERCENT, False)
+        self.motor_TRAY.spin_to_position(-100, DEGREES, False)
         self.trayState = 1
     def trayDown(self):
         """Moves the fruit tray to the down position"""
-        self.motor_TRAY.spin_to_position(0, DEGREES, 100, PERCENT, False)
+        self.motor_TRAY.spin_to_position(0, DEGREES, False)
         self.trayState = 0
 
 # ports as ints are 0 indexed, but are 1 indexed on the brain and using 'Ports.Port_' notation
@@ -781,19 +770,19 @@ PIDcontrollers : list[PID] = []
 turnPID = PID(5, 0, 0, 100, gyro.heading, True, angleUnits=RotationUnits.DEG)
 """Turn handler"""
 
-fruitTurnPID = PID(2,0,1, 100, None, False, invertInput=True) # fruitTurnPID = PID(1,0,1, 100, None, False, invertInput=True)
+fruitTurnPID = PID(5,0,1, 100, None, False, invertInput=True) # fruitTurnPID = PID(1,0,1, 100, None, False, invertInput=True)
 """PID to use vision object pixel position to turn the robot. \n
 Similar behavior may be achieved by scaling the pixel value to degrees from center, then using the turnPID. turnPID would have to be unbound from auto update for turnPID to work correctly for this behavior."""
 fruitTurnPID.unbind() # prevent the state machine from automatically updating this PID. An input supplier must be given for auto update to work
 fruitTurnPID.setNewSetpoint(160) # 160 with pixel data
 
-fruitDistPID = PID(4,0,1, 100, None, False) # fruitDistPID = PID(5,0,1, 100, None, False)
+fruitDistPID = PID(2,0,1, 100, None, False) # fruitDistPID = PID(5,0,1, 100, None, False)
 fruitDistPID.unbind()
-fruitDistPID.setNewSetpoint(300) # 220 with pixel data
+fruitDistPID.setNewSetpoint(10) # 220 with pixel data
 
-armFruitPID = PID(5,0,1, 50, None, False) # armFruitPID = PID(5,0,1, 50, None, False)
+armFruitPID = PID(3,0,1, 50, None, False) # armFruitPID = PID(5,0,1, 50, None, False)
 armFruitPID.unbind()
-armFruitPID.setNewSetpoint(150) #150 with pixel data
+armFruitPID.setNewSetpoint(-2) #150 with pixel data
 
 wallPID = PID(1, 0, 1, 150,None, False, False)
 wallPID.unbind()
@@ -898,7 +887,20 @@ def stateMachine():
 
         if controllerButtons.pressed(Buttons.A): # end condition 
             currentMode = Modes.TELEOP   # end behavior (state change + additional behaviors)
-            turnPID.setNewSetpoint(gyro.heading())
+
+        # if controllerButtons.pressed(Buttons.X): # end condition 
+        #     currentMode = Modes.NAVIGATE   # end behavior (state change + additional behaviors)
+        #     newState = States.MOUNDDIST
+        #     robot.navHeadingSetpoint = 0
+        #     moundDist = 925
+        #     robot.hold = False
+
+        # if controllerButtons.pressed(Buttons.Y): # end condition
+        #     currentMode = Modes.NAVIGATE   # end behavior (state change + additional behaviors)
+        #     newState = States.MOUNDDIST
+        #     robot.navHeadingSetpoint = 0
+        #     moundDist = 725
+        #     robot.hold = False
 
         if controllerButtons.pressed(Buttons.X):
             currentMode = Modes.COLLECTION
@@ -907,15 +909,11 @@ def stateMachine():
             currentMode = Modes.FRUITFOLLOWING
             newState = States.FRUITFOLLOWING
 
-        if controllerButtons.pressing(Buttons.LEFT):
-            print("BRHUHHH")
-            arm.goDefault()
-
     elif currentMode == Modes.TELEOP:
         # do
         
         turnPID.setpoint += controller.axis1.position() * .25 * dt()/1000000
-        drivetrain.drive(controller.axis3.position(), controller.axis4.position(), turnPID.getOutput(), controllerButtons.pressing(Buttons.RIGHT))
+        drivetrain.drive(controller.axis3.position(), controller.axis4.position(), turnPID.getOutput(), controllerButtons.pressing(Buttons.L1))
 
         if controllerButtons.pressing(Buttons.L1):
             arm.lift(20)
@@ -923,10 +921,9 @@ def stateMachine():
             arm.lift(-20)
         if controllerButtons.pressed(Buttons.R1):
             arm.open()
-            # controller.rumble(".")
         if controllerButtons.pressed(Buttons.R2):
             arm.close()
-            # controller.rumble("-")
+
         if controllerButtons.pressed(Buttons.UP):
             robot.trayUp()
         if controllerButtons.pressed(Buttons.DOWN):
@@ -942,28 +939,24 @@ def stateMachine():
                 drivetrain.drive(fruitDistPID.update(camera.largestObject.height).getOutput(), 0, fruitTurnPID.update(camera.largestObject.centerX).getOutput(), True)
                 arm.lift(armFruitPID.update(camera.largestObject.centerY).getOutput())
                 arm.open()
-                if(camera.largestObject.width > 300):
+                if(armFruitPID.atSetpoint(5, camera.largestObject.height)):
                     arm.close()
                     newState = States.CLOSING
             else:
                 drivetrain.stopAll()
         elif currentState == States.CLOSING:
-            if(arm.gripperStatus == 1):
+            if(arm.gripperCommand == 0):
                 newState = States.DROPFRUIT
         elif currentState == States.DROPFRUIT:
             if(arm.zero()):
                 arm.open()
                 newState = States.FRUITFOLLOWING
 
-############################################################################################################################################################
-############################################################################################################################################################
-############################################################################################################################################################
-
     elif currentMode == Modes.COLLECTION:
-        # if currentState != States.FRUITFOLLOWING:
-        #     """Put the arm back down after you get the fruit :()"""
-        #     if(arm.zero() == True):
-        #         newState = States.WALL_FOLLOWING
+        if currentState != States.FRUITFOLLOWING:
+            """Put the arm back down after you get the fruit :()"""
+            if(arm.zero() == True):
+                currentState = States.WALL_FOLLOWING
         
         if currentState == States.DEFAULT:
             newState = States.WALL_FOLLOWING
@@ -971,6 +964,30 @@ def stateMachine():
             wallPID.reset()
         
         elif currentState == States.WALL_FOLLOWING:
+            # if currentWall == 0:
+            #     wallDist = sonarB.distance(MM)
+            #     if prevWallDist == 0:
+            #         prevWallDist = wallDist
+            #         wallPID.setNewSetpoint(400)
+            #     if wallDist - prevWallDist < -5: # need to test
+            #         inFrontOfBasket = True
+            #         wallPID.setNewSetpoint(50)
+            #     if wallDist - prevWallDist > 5:
+            #         inFrontOfBasket = False
+            #         wallPID.setNewSetpoint(400)
+            # else:
+            #     wallPID.setNewSetpoint(200)
+            # if sonarB.distance(MM) < 2000:
+            #     drivetrain.drive(wallPID.update(sonarB.distance(MM)).getOutput(), 100, turnPID.getOutput(), True)
+            # else:
+            #     drivetrain.drive(0, 50, turnPID.getOutput(), True)
+            # if sonarR.distance(MM) < 200 or currentWall == 3 and sonarR.distance(MM) < 400:
+            #     newState = States.TURNING
+            #     returnState = States.WALL_FOLLOWING
+            #     updateCurrentWall(currentWall+1)
+            #     turnPID.setNewSetpoint(turnPID.setpoint - 90) # will always maintain (0 <= setpoint < 360) due to continuous rotation mode
+            # if abs(gyro.orientation(ROLL)) > 8 or abs(gyro.orientation(PITCH)) > 8: # stepped up to a wall without seeing it
+            #     currentMode = Modes.DEFAULT
             wallFollowing(False)
             if fruitSearching and camera.averageLargestObject != None and camera.averageLargestObject.dist < 50: # enforce max distance of 50 cm, otherwise fruit is ignored
                 arm.open()
@@ -992,34 +1009,25 @@ def stateMachine():
                     returnState = None
         
         elif currentState == States.FRUITFOLLOWING:
-            if camera.largestObject != None:
-                drivetrain.drive(fruitDistPID.update(camera.largestObject.height).getOutput(), 0, fruitTurnPID.update(camera.largestObject.centerX).getOutput(), True)
-                arm.lift(armFruitPID.update(camera.largestObject.centerY).getOutput())
-                arm.open()
-                if(camera.largestObject.width > 300):
+            if camera.averageLargestObject != None:
+                drivetrain.drive(fruitDistPID.update(camera.averageLargestObject.dist).getOutput(), 0, fruitTurnPID.update(camera.averageLargestObject.angleTo).getOutput(), True)
+                arm.lift(armFruitPID.update(camera.averageLargestObject.height).getOutput())
+                if fruitDistPID.atSetpoint(5, camera.averageLargestObject.dist) and fruitTurnPID.atSetpoint() and armFruitPID.atSetpoint():
                     arm.close()
                     newState = States.CLOSING
+                    pass
             else:
-                drivetrain.stopAll()
-            
-            if camera.averageLargestObject == None:
-                newState = States.TURNING
-                
+                newState = States.TURNING # turn to face center; on complete, return to wall following; (return to wall)
+
         elif currentState == States.CLOSING:
-            if arm.gripperCommand == 0:
+            if arm.gripperStatus == 1:
                 newState = States.DROPFRUIT
 
         elif currentState == States.DROPFRUIT:
-            drivetrain.drive(-25,0,0,True) 
-            if arm.goDefault():
+            if arm.zero():
                 arm.open()
-                # arm.goDefault()
                 newState = States.TURNING
                 trayCount += 1
-
-############################################################################################################################################################
-############################################################################################################################################################
-############################################################################################################################################################
 
 def wallFollowing(reversed = False): # created to prevent duplicate code between normal and reversed wall following
     global prevWallDist
@@ -1058,15 +1066,14 @@ def wallFollowing(reversed = False): # created to prevent duplicate code between
             drivetrain.drive(wallPID.update(wallSonar.distance(MM)).getOutput(), 100, turnPID.getOutput(), True)
         else:
             drivetrain.drive(0, 50, turnPID.getOutput(), True)
-    if sideSonar.distance(MM) < 200 or (((currentWall == 3 and not reversed) or (currentWall == 1 and reversed)) and sideSonar.distance(MM) < 400):
+    if sideSonar.distance(MM) < 200 or currentWall == 3 and sideSonar.distance(MM) < 400:
         newState = States.TURNING
+        updateCurrentWall(currentWall+1)
         if reversed:
             turnPID.setNewSetpoint(turnPID.setpoint + 90) # will always maintain (0 <= setpoint < 360) due to continuous rotation mode
             returnState = States.WALL_FOLLOWING_REVERSE
-            updateCurrentWall(currentWall-1)
         else:
             turnPID.setNewSetpoint(turnPID.setpoint - 90)
-            updateCurrentWall(currentWall+1)
             returnState = States.WALL_FOLLOWING
     if abs(gyro.orientation(ROLL)) > 8 or abs(gyro.orientation(PITCH)) > 8: # stepped up to a wall without seeing it
         currentMode = Modes.DEFAULT
