@@ -971,8 +971,8 @@ def stateMachine():
             wallPID.reset()
         
         elif currentState == States.WALL_FOLLOWING:
-            wallFollowing(False)
-            if fruitSearching and camera.averageLargestObject != None and camera.averageLargestObject.dist < 50: # enforce max distance of 50 cm, otherwise fruit is ignored
+            nearWall = wallFollowing(False)
+            if nearWall and fruitSearching and camera.averageLargestObject != None and camera.averageLargestObject.dist < 50: # enforce max distance of 50 cm, otherwise fruit is ignored
                 arm.open()
                 newState = States.FRUITFOLLOWING
                 armFruitPID.reset()
@@ -1058,7 +1058,10 @@ def wallFollowing(reversed = False): # created to prevent duplicate code between
             drivetrain.drive(wallPID.update(wallSonar.distance(MM)).getOutput(), 100, turnPID.getOutput(), True)
         else:
             drivetrain.drive(0, 50, turnPID.getOutput(), True)
-    if sideSonar.distance(MM) < 200 or (((currentWall == 3 and not reversed) or (currentWall == 1 and reversed)) and sideSonar.distance(MM) < 400):
+    
+    nearWall = wallPID.atSetpoint(25, sonarB.distance(MM))
+    
+    if nearWall and (sideSonar.distance(MM) < 200 or (((currentWall == 3 and not reversed) or (currentWall == 1 and reversed)) and sideSonar.distance(MM) < 400)):
         newState = States.TURNING
         if reversed:
             turnPID.setNewSetpoint(turnPID.setpoint + 90) # will always maintain (0 <= setpoint < 360) due to continuous rotation mode
@@ -1070,6 +1073,7 @@ def wallFollowing(reversed = False): # created to prevent duplicate code between
             returnState = States.WALL_FOLLOWING
     if abs(gyro.orientation(ROLL)) > 8 or abs(gyro.orientation(PITCH)) > 8: # stepped up to a wall without seeing it
         currentMode = Modes.DEFAULT
+    return nearWall
 
 while True:
 
