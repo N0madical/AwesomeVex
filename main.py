@@ -7,11 +7,135 @@
 #                                                                              #
 # ---------------------------------------------------------------------------- #
 
+
+def ascii():
+    return """
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠉⢀⢠⣤⡉⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠘⣿⣿⣹⣷⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠸⣿⣿⡙⡟⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⢈⣉⠁⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣧⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣟⠆⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣘⡿⠁⢺⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿⡃⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠸⠟⠛⠃⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⣡⣴⣶⣶⣾⣶⣦⡘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠛⣉⣉⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣀⣀⡙⠻⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⢉⠠⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣌⡉⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⣄⣦⣷⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣬⣿⣧⡤⡈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⢀⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢪⢀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣎⣦⣀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⣌⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⡀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣱⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⣝⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡧⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠉⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡆⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢠⠐⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⢰⢂⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠟⠛⠛⢉⣉⣉⣉⣉⣉⣉⣉⡙⠛⠛⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⢼⡿⠿⠿⠛⠛⢉⣉⣡⣤⣤⣴⣶⣾⡿⠿⠿⠿⠿⠿⠿⠿⣿⣿⣿⣿⣷⣶⣦⣈⡑⠫⢝⡛⢿⣿⣿⣿⣿⣿⣿⣿⠇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠟⠛⠛⣋⣉⣤⣤⣴⣶⠶⠿⠿⠛⠛⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⣿⣿⣿⣿⣿⣿⣿⣷⣦⣈⠀⠙⢿⣿⣿⣿⣿⣿⠃⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢋⣡⣴⣶⣾⣿⠿⠿⠛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣗⠄⠈⢿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⢁⣴⣾⡿⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣤⣤⣴⣶⣶⣆⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄⠈⡟⢻⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⣰⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠡⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⣰⡟⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⣿⣿⣿⠛⠛⠛⠛⣿⣿⣿⡇⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⢸⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⢠⣿⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⡟⠛⠛⠒⢲⣤⣄⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⢸⣿⣟⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣏⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⢸⣿⡿⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣤⣤⣤⣤⣿⣿⠏⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⢺⣿⣏⠐⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿⡀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣧⣤⣤⣤⣼⣿⣷⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⣁⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠇⣾⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⠈⣿⡇⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⣿⣿⣿⡿⠿⠿⠛⠛⢋⣉⣉⣤⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢠⢰⣿⡏⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⠹⣷⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⡿⡿⠿⠿⠟⠛⠛⣋⣉⣉⣥⣤⣤⣶⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⡄⣸⣿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡈⠲⢤⣤⣤⣤⣤⣤⣤⣤⣴⣦⣴⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⢰⢁⢸⣿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣻⣿⣿⣿⣿⣿⣿⣿⣶⣌⡉⠛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠋⡠⣶⣿⠂⣹⡃⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣉⡛⠻⢿⣿⣿⣿⡿⠿⠿⠛⠛⢋⣉⣉⣡⣄⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣄⣤⣄⣌⣉⣉⣉⣉⣡⣤⣤⣶⣮⣷⣿⣿⠀⣽⠂⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⡄⢉⣤⣤⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⢻⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣧⣿⣿⣿⣿⣿⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⠘⢫⣿⣿⣿⣿⡛⠿⠯⠟⠛⠛⠉⠉⣈⣉⣉⣤⣤⣤⠀⣤⣉⣉⣉⡉⠋⠒⠿⢿⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢬⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⢻⣿⣿⣿⣧⡄⢠⣶⣾⣿⣿⡟⢰⣿⣿⣿⣿⣿⣿⠄⢻⣿⣿⣿⣿⣿⣷⠀⣦⣄⡉⢋⣿⡽⣿⣿⣿⣿⣿⣿⣯⣟⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⢿⡿⢿⣿⠿⠿⠿⠿⠷⠄⠙⠻⠿⠿⠇⠸⣿⣿⣿⣿⠃⣾⣿⣿⣿⣿⣿⣿⣆⠸⣿⣿⣿⣿⣿⣿⡇⢸⣷⣷⡄⠈⣿⣿⣿⣿⣿⣿⣿⣽⡟⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⢡⡖⣶⣦⣀⠀⠀⠀⠀⠀⠀⠒⢦⣄⠀⠀⠀⢀⡀⠀⠈⠉⠉⠀⣤⣤⣤⣤⣬⣉⡙⠻⠐⣿⣿⣿⣿⣿⣿⣇⠸⣿⣿⣷⡄⢸⣿⣿⣿⣿⣿⣿⣿⡇⢨⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢻⠏⢰⢷⣼⣿⣿⣿⡤⠀⠀⠀⠀⠀⠀⠀⠈⢻⣿⣿⠃⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣷⠀⣤⣤⣬⣍⣉⣙⠋⠰⠿⣿⣿⣧⠀⣿⣿⣿⣿⣿⣿⣯⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠸⢾⣙⢾⡟⢿⡣⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⠀⠀⠀⠀⠀⠀⠀⠛⠛⠻⠛⠛⢋⣉⣥⠀⣥⣉⣩⣉⣉⣉⡃⠘⠶⣦⣬⡉⢠⣿⣿⣿⣿⣿⣿⣿⠇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣽⣆⠙⠶⠶⠝⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠟⠀⠀⣀⣤⣴⣿⣇⢸⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⡇⢸⣶⣦⡬⠁⣜⣿⣿⣿⣿⣿⣿⡟⠃⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⣐⣲⣶⣶⣶⣤⣤⣤⣤⣤⣤⣤⣤⣴⣶⣶⣾⠂⣽⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⠿⠅⠺⠛⠋⣠⣾⣿⣿⣿⣿⣿⣿⣿⣷⠃⢼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣭⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠻⠿⠿⠃⠛⠛⠛⠛⠛⢃⠘⣋⣉⣉⣉⣉⣉⣤⣤⣤⣤⣤⣴⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢰⡖⣶⣾⣿⣿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⣥⡶⠧⢽⢿⢿⡷⡿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⢿⠿⢯⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⠿⠛⠋⣉⣉⣤⣤⣤⣴⣤⣤⣤⣤⣴⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣤⣤⣤⣤⣄⣉⣉⠀⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⣀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡦⣌⠙⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢋⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣢⡈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢁⣤⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢁⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡻⠷⠄⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢀⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠛⣉⣠⣤⣴⣶⣤⣤⣤⣉⠙⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⣠⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢉⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣧⣹⣯⣐⠄⠙⢿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⣀⣬⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠟⠛⠉⠉⠉⣉⢁⣀⡀⢤⠠⡄⢤⠠⡄⢄⢠⡀⠀⠀⠀⠠⢄⡠⣀⣀⣁⣀⣈⢉⡉⢉⠉⠉⠙⠋⠀⠂⠭⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠱⠀⠹⢿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⡠⠾⠿⠿⠛⠛⠛⠛⠛⠛⠛⠋⢉⡠⣀⠤⡄⠂⡐⠀⢀⠸⣆⠯⢴⡙⢎⡳⣙⢎⡳⣙⢎⠶⣁⠂⡀⠉⡙⢎⡕⣣⢚⡤⢳⡘⢦⡙⢮⣩⠃⡀⠘⠔⡢⢒⣠⡀⣀⠉⠙⠻⠿⡿⢿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠘⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⢠⠴⣶⣶⡶⠷⠘⠉⠁⡀⢤⡂⣍⢠⢳⣉⠞⡄⡐⠀⠄⣫⠞⣰⢋⠶⣙⢎⡵⢣⢎⡵⢊⡎⢧⡹⢜⡤⠀⠐⢪⡜⡱⢎⡜⣣⠝⣦⡙⢦⢣⠰⢡⠀⢂⠳⣍⢲⢱⡂⢎⠁⡄⠀⠈⠓⢝⣿⣿⣿⣿⣿⣿⣿⣟⡀⠘⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠁⢸⡿⠋⠁⠀⣔⢢⡝⣣⢝⡢⡝⣤⢋⢦⡱⢋⡜⠀⠨⢐⡣⡝⢦⣋⠞⣥⢚⡴⢋⠶⣘⢧⢚⡥⢳⡩⠖⢂⠀⠘⡜⢡⢏⡜⢦⢛⡤⣛⢬⢣⢛⡲⠄⠀⡄⢎⢧⠣⢞⡤⣓⢖⡸⢀⠂⠈⢳⣿⣿⣿⣿⣿⣿⣿⣯⡄⢹⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠉⢀⠀⠀⠀⠀⢠⠀⠘⠐⡎⠶⡱⢎⡲⡱⣍⠶⣩⢖⡁⠠⠀⢀⠂⢧⡱⣙⢦⢣⡛⣤⢋⠶⣩⠞⣱⢊⢧⡚⣥⠳⣩⠀⢂⠀⠇⡌⢶⢩⢎⡳⢜⡜⣪⠕⣫⢜⡡⠀⠥⣚⢬⢛⡬⢲⢍⠶⡱⣊⠼⡀⠘⡆⣿⣿⣿⣿⣿⣿⣷⡇⠸⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠉⠀⠀⠐⠤⠀⠀⠀⠀⡀⠠⠀⠂⢰⡉⢷⡙⣬⠓⡵⣊⢞⡡⢎⡵⠰⠀⠀⠆⢡⢳⡩⢖⡣⡕⢮⡙⢮⡱⢎⡵⢋⢦⡹⡔⣫⠖⣭⢣⠀⠸⣘⠮⡱⢎⡵⢪⡜⡱⢎⡵⣊⠖⠀⡃⣭⢚⡼⡘⢧⢎⡳⡱⡍⡖⡆⠀⡭⣿⣿⣿⣿⣿⣿⡗⠃⢰⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⠁⢀⡤⡸⡔⡂⠀⠠⠁⠀⣆⠖⠁⢈⠀⠅⢠⢛⢦⡙⢦⡛⡴⣩⠖⡹⢎⡴⠀⡃⠀⠀⢫⡒⣭⢲⡱⣙⢦⡙⢦⢳⡩⢖⡭⢲⡱⢍⠶⣩⠖⣣⠀⡌⠥⢫⡕⣫⢔⡣⢞⡱⣋⠴⣩⠎⠀⡁⢦⢫⠴⣙⢎⠶⣑⢧⡱⡹⡄⠀⡅⣿⣿⣿⣿⣿⣿⡧⠀⣾⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠉⡠⠐⣌⢤⡚⡴⢣⡝⣄⠒⠀⢠⠖⣌⢯⢠⡰⠀⠘⣌⠧⡎⡝⢦⡙⢶⡡⢏⡵⢋⡴⣋⡅⠀⢣⠄⣛⢤⢣⠧⣍⠶⣙⠮⣑⢎⢧⢚⡥⣙⢎⡳⡌⣇⠃⠀⠆⣈⠗⡜⢦⡹⡸⢥⡓⢭⡊⢱⠂⢐⠀⣬⢣⢛⡬⢎⠧⣍⠖⡁⢑⠀⢠⣠⣿⣿⣿⣿⡋⡤⠁⣼⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⡤⣀⠠⢊⠘⢦⠱⣃⠷⡘⠄⠀⣠⢩⠞⣌⢖⡣⢧⠡⠀⢀⠳⣍⡚⡥⢛⢦⡙⣎⠶⣩⢖⡱⢆⠀⢸⠱⣍⢎⡓⡞⢬⡚⣥⢚⡵⣊⢎⢧⢚⡥⢎⡵⠊⡜⠁⢘⡀⠜⣎⡹⢆⡳⣙⢦⡙⡖⡘⠀⠀⠂⠔⣊⠖⣩⠲⢍⡞⡸⠎⠁⢀⣴⣷⣾⣿⣿⡿⣷⠗⢀⣼⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⣀⢁⣀⣀⣀⡀⠈⠀⠠⢉⠂⠍⠀⢸⠀⣣⢫⠜⣎⠼⣡⠇⡂⠀⠑⠊⡵⢩⡓⣎⠵⣊⢞⡡⢎⡵⢋⣀⠀⠋⡘⢎⡵⣊⢇⡳⣌⠳⢦⡙⣎⡜⡣⢎⠳⣘⢇⠎⠀⡌⠰⠘⠆⡝⠎⠵⠊⠶⠩⠜⠁⠁⠀⠋⠓⠈⠙⠀⠁⣀⣠⣤⣴⣾⣛⣿⡿⠿⢿⠿⠗⢁⣤⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⡟⠁⠀⢰⠣⠞⡔⣣⢌⡳⢌⣑⡀⡄⠀⢀⠀⠎⠀⢥⢣⠛⡬⢣⠳⡜⠑⠢⠀⠂⠩⡃⠳⢌⡳⣩⢎⡕⣫⢔⡋⠠⠁⡄⠀⠨⠖⡩⠞⠰⠉⠓⠂⠓⠈⠒⠉⣈⣁⣈⣀⣀⠀⢠⣤⡄⠠⠤⢤⣤⣴⣶⣶⣶⣶⣶⣾⣶⣿⣿⣶⣶⣤⣄⣉⣉⠉⠛⠛⠛⠋⢉⣀⡄⢸⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⠏⠀⠀⣏⢣⠏⡽⣘⠥⡎⢵⡊⢶⢡⠈⢠⣾⣆⠀⠢⠲⡍⠛⠼⠡⠳⠌⠃⠂⠐⠀⠐⠀⠐⠂⠐⠃⠊⠘⠁⠊⠙⠒⠀⠀⠁⠀⠀⠠⠠⠴⠶⢶⣶⣿⣿⣿⣿⣻⣿⡿⠟⠃⠀⠋⠛⠀⠀⠀⠀⠀⠉⠙⠋⠉⠁⠁⠉⠛⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢈⡆⢸⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⠋⠀⠀⡛⠌⠎⣹⠐⡈⠓⠘⠁⠉⠀⡁⠀⠁⣀⣀⡀⢤⠠⡄⢤⠠⠀⠀⢰⣂⣒⡒⢆⡖⣲⢂⠒⠈⠐⠁⣠⣿⣿⣿⣿⣿⣿⣷⣾⣶⣶⣶⣶⣦⣤⣤⣄⣉⠙⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠺⢟⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣇⢸⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⡿⠁⠀⣌⠇⠀⠀⠂⠀⢀⠤⣐⠂⡠⠡⠋⠀⠀⡱⣒⠦⣙⢎⠳⡜⡠⠁⠀⢃⠶⣡⢎⡹⢜⠲⣱⠊⡤⠁⡠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠒⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠺⣿⣿⣿⣿⣿⣿⡇⣹⡧⢸⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⡿⠁⢰⠀⡌⠂⢀⠀⡰⣍⠞⣢⢓⠦⡰⠈⠀⢀⠶⣑⢣⡝⠼⣌⠓⡀⠁⠀⢨⢏⡲⢥⠎⡵⣊⠷⣁⠒⠀⣤⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠛⢉⡠⣔⣆⣿⣿⠍⠑⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⡇⣹⣇⢸⣿⣿⣿⣿⣿⣿⣿⣿
+⡿⠁⠄⢃⠂⠀⡄⡸⢲⡱⢎⢞⡡⠏⠐⠁⡀⢂⢎⡳⣩⠖⣜⠳⡢⠀⠀⠰⠐⣊⠶⣩⠖⣹⢒⡍⢀⠌⢀⣼⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡾⠋⢉⣠⢴⣻⣴⣾⣿⣿⣿⠀⡠⣾⣷⣶⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣟⣹⢻⣿⡇⣿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿
+⠇⢐⠃⠀⠀⡰⢦⡱⢣⠞⣜⢪⡱⢣⠁⠀⢤⣋⠶⡱⣱⢚⡬⡓⣁⠄⠠⣄⠣⡜⡜⢦⢛⡴⢋⠴⡁⠀⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⡯⠁⠀⢤⣦⣿⣿⣿⣿⣿⣿⣿⣏⠀⣷⣿⣿⣿⣿⣿⣿⣿⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠿⣯⠅⣸⡗⢸⣿⣿⣿⣿⣿⣿⣿⣿
+⠀⠈⠀⠰⣔⡹⢢⡕⣋⠞⣬⢓⡜⡣⠀⡍⢦⢓⢮⡱⢣⠞⡴⣃⠧⠀⢰⢊⡗⢭⡚⣥⢋⠶⣉⢖⡁⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣏⠌⢠⠘⣿⣷⡙⠏⠉⠉⠛⠛⠿⢹⣯⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣮⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠑⠫⠅⢸⣿⣿⣿⣿⣿⣿⣿⣿
+⡆⠀⢈⡱⢎⡴⢣⢞⣡⢛⡴⢋⡴⠃⠀⡈⢇⡫⢆⡳⡍⣞⠱⡎⡵⠀⠀⠯⡜⢦⡹⣰⢋⢮⡱⢊⠄⠘⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠸⡈⢀⣦⠜⣿⡟⠁⠀⣰⣿⣿⣷⡶⡄⠉⠀⠈⠙⠿⣿⢿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⣿⣿⣿⣿⣿⣿
+⡇⠀⢘⡬⣓⡜⢣⢞⡰⢫⡔⣫⢜⣃⠀⠂⡯⢜⡣⢵⡙⡴⢫⡜⠦⣡⠀⠹⡘⢱⠲⣅⢋⠶⠉⠃⠈⠀⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⠀⣶⣸⡆⠶⠁⢐⡀⢿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠈⠛⢽⣿⣿⣿⣿⣿⣿⢿⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣿⣿⣿
+⣿⡄⠠⠞⡴⣩⢓⠮⣱⢣⠞⣡⠞⡴⠀⡙⣜⢣⡙⢦⡹⢜⡱⣊⢧⠃⠆⠀⠑⠌⠃⢀⣀⡤⠴⠶⢿⣿⣄⠀⠹⢿⣿⣿⣿⣿⣿⣿⣿⡇⢠⣿⣿⣷⣼⡄⠘⣷⣿⣿⣿⣿⣿⣿⣿⣄⣄⠀⠀⠀⠀⠀⠁⢿⣿⣿⣿⣿⣼⠁⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠿
+
+⬛⬛⬛⬛⬛⬛⬛⬜⬛⬛⬜⬜⬜⬜⬜⬜⬛⬜⬛⬛⬛⬛⬛⬛⬛
+⬛⬜⬜⬜⬜⬜⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬜⬛⬜⬜⬜⬜⬜⬛
+⬛⬜⬛⬛⬛⬜⬛⬜⬛⬜⬜⬛⬛⬛⬜⬛⬜⬜⬛⬜⬛⬛⬛⬜⬛
+⬛⬜⬛⬛⬛⬜⬛⬜⬛⬛⬜⬛⬛⬜⬛⬜⬜⬜⬛⬜⬛⬛⬛⬜⬛
+⬛⬜⬛⬛⬛⬜⬛⬜⬛⬛⬛⬛⬜⬜⬜⬛⬜⬜⬛⬜⬛⬛⬛⬜⬛
+⬛⬜⬜⬜⬜⬜⬛⬜⬜⬛⬜⬜⬛⬛⬜⬜⬜⬜⬛⬜⬜⬜⬜⬜⬛
+⬛⬛⬛⬛⬛⬛⬛⬜⬛⬜⬛⬜⬛⬜⬛⬜⬛⬜⬛⬛⬛⬛⬛⬛⬛
+⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬜⬛⬜⬜⬜⬜⬛⬜⬜⬜⬜⬜⬜⬜⬜
+⬛⬛⬛⬛⬜⬜⬛⬜⬛⬜⬜⬜⬛⬜⬛⬜⬛⬛⬜⬜⬛⬛⬛⬜⬛
+⬜⬜⬜⬜⬛⬜⬜⬛⬜⬛⬜⬜⬜⬜⬛⬜⬛⬜⬜⬛⬜⬜⬜⬛⬜
+⬜⬛⬛⬛⬛⬜⬛⬛⬜⬜⬜⬛⬛⬛⬜⬜⬜⬜⬛⬛⬛⬜⬜⬜⬜
+⬜⬛⬛⬛⬛⬜⬜⬛⬜⬜⬜⬛⬜⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜⬜
+⬜⬜⬛⬜⬜⬛⬛⬜⬜⬛⬜⬜⬛⬛⬜⬛⬜⬛⬛⬛⬛⬜⬛⬛⬛
+⬜⬜⬜⬜⬛⬛⬜⬜⬛⬛⬛⬜⬛⬜⬜⬛⬛⬜⬛⬛⬛⬜⬜⬜⬛
+⬜⬛⬜⬛⬜⬜⬛⬛⬜⬜⬜⬜⬜⬛⬛⬜⬛⬛⬜⬜⬛⬜⬛⬛⬜
+⬛⬜⬛⬛⬛⬜⬜⬜⬛⬛⬜⬜⬛⬜⬜⬜⬛⬛⬛⬛⬛⬜⬜⬜⬛
+⬜⬜⬜⬛⬛⬛⬛⬜⬜⬛⬜⬜⬛⬛⬜⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬜⬜⬛⬛⬛⬜⬛⬜⬜⬜⬛⬜⬛⬜⬛
+⬛⬛⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜⬛⬛⬜⬛⬜⬛⬜⬛⬜⬛⬛⬛
+⬛⬜⬜⬜⬜⬜⬛⬜⬜⬜⬛⬜⬛⬜⬜⬜⬛⬜⬜⬜⬛⬜⬜⬛⬜
+⬛⬜⬛⬛⬛⬜⬛⬜⬜⬛⬛⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬛⬜⬛⬛
+⬛⬜⬛⬛⬛⬜⬛⬜⬛⬛⬜⬛⬜⬛⬛⬜⬜⬛⬛⬜⬛⬛⬛⬛⬛
+⬛⬜⬛⬛⬛⬜⬛⬜⬛⬜⬜⬛⬛⬜⬛⬛⬜⬜⬛⬜⬛⬜⬛⬛⬜
+⬛⬜⬜⬜⬜⬜⬛⬜⬛⬜⬜⬛⬛⬛⬛⬛⬜⬛⬜⬜⬛⬜⬛⬜⬜
+⬛⬛⬛⬛⬛⬛⬛⬜⬛⬛⬛⬜⬜⬜⬛⬜⬜⬜⬛⬛⬛⬛⬛⬛⬛
+"""
+
+    pass
+
+# Config
+boxOrder = [1,2,3]
+"""Order left to right facing wall
+
+Color IDs:
+1: Green
+2: Orange
+3: Yellow
+4: Pink
+"""
+wallHeadings = [90,0,270,180]
+
+
 # Library imports
 from vex import (Brain, Controller, Inertial, Ports, Sonar, Motor, FORWARD, PERCENT, REVERSE, DEGREES, RotationUnits, Timer, Line, MM, Triport, XAXIS, YAXIS)
 from vex import *
 import math
-
 brain = Brain()
 controller = Controller()
 
@@ -22,17 +146,17 @@ dt = lambda : systemTime - prevSystemTime
 class States:
     """List of states."""
     DEFAULT = "DEFAULT"     # There must be a better way to do this, but this was the best way I could find to make the states indexable with 'States.*' and be reversible back to the state name.
-    # MOUNDDIST = "WAITING FOR LEFT MOUND"
-    # AWAITMOUND = "AWAITING MOUND"
-    # AWAITWALL = "AWAITING WALL"
-    # REORIENT = "REORIENTING"
-    # RETURNTOSTART = "Returning :)"
     WALL_FOLLOWING = "Following Wall Right"
     WALL_FOLLOWING_REVERSE = "Following Wall Left"
     TURNING = "Turning"
     FRUITFOLLOWING = "Fruit Grabbing"
     DROPFRUIT = "Placing fruit in tray"
     CLOSING = "Closing Gripper"
+    WALL_RETURN = "Returning To Wall"
+    BASKET_FOLLOWING = "Following Baskets"
+    UNLOAD = "Unloading"
+    COLLECTION_INIT = "Initializing Collection Mode"
+    BACK_AWAY = "Backing Away"
 class Modes:
     """List of Modes."""
     NAVIGATE = "NAVIGATE"
@@ -153,14 +277,14 @@ class Arm:
         self.active = True
         #if velocity > 1:
         self.driving = True
-        self.liftGroup.spin(FORWARD, velocity, RPM)
+        self.liftGroup.spin(FORWARD, velocity, PERCENT)
     def stop(self):
         self.liftGroup.stop()
         self.driving = False
     def zero(self):
         """Call until arm is zerored, when arm is zeroes will return True"""
         if not (self.liftGroup.velocity(RPM) > -1 and self.prevArmVel < -1):
-            self.lift(-50)
+            self.lift(-25)
             self.prevArmVel = self.liftGroup.velocity(RPM)
             return False
         else:
@@ -171,7 +295,7 @@ class Arm:
 
     def goDefault(self):
         self.active = True
-        self.liftGroup.spin_to_position(1, TURNS, 50, PERCENT, False)
+        self.liftGroup.spin_to_position(0.6, TURNS, 50, PERCENT, False)
         return self.liftGroup.is_done()
     
     def open(self):
@@ -182,7 +306,7 @@ class Arm:
         self.gripperCommand = 1
         self.gripperCommandTimer = 0
         self.gripperStatus = 0
-    def updateGripper(self):
+    def updateArm(self):
         if not self.zeroed:
             self.zero()
         
@@ -212,10 +336,6 @@ class Arm:
                 self.gripperCommand = 0
                 self.prevJawVel = 0 # unused for this command, but added for safety
                 self.gripperStatus = -1
-            
-        Printer.add(("JawVel: " + str(self.prevJawVel)), 0, 7)
-        Printer.add(("Arm Speed: " + str(self.liftGroup.velocity(RPM))), 0, 8)
-        Printer.add(("Gripper Speed: " + str(self.gripper.velocity(RPM))), 0, 9)
 
         # if abs(self.gripperCommand) == 1:
         #     self.gripperCommandTimer += dt()
@@ -482,7 +602,7 @@ class LocatedVisionObject:
         return "Dist:"+str(self.dist)+", Height:"+str(self.height)+", Angle:"+str(self.angleTo)+", Type:"+str(self.fruitType)+", Color:"+str(self.color)
 
 class Robot:
-    def __init__(self, PortMotorFL, PortMotorFR, PortMotorBL, PortMotorBR, PortMotorTRAY, PortGyro, PortVision, PortArmL, PortArmR, PortGripper, PortSonarB : Triport.TriportPort, PortSonarR : Triport.TriportPort):
+    def __init__(self, PortMotorFL, PortMotorFR, PortMotorBL, PortMotorBR, PortMotorTRAY, PortGyro, PortVision, PortArmL, PortArmR, PortGripper, PortSonarB : Triport.TriportPort, PortSonarR : Triport.TriportPort, PortLineR, PortLineL):
         """initializes the hardware components of the robot"""
         self.motor_FL = Motor(PortMotorFL)
         self.motor_FR = Motor(PortMotorFR)
@@ -499,7 +619,7 @@ class Robot:
         
         gyroPos1 = 0
         gyroPos2 = 1
-        while abs(gyroPos1 - gyroPos2) > 0.01:
+        while abs(gyroPos1 - gyroPos2) > 0.012:
             print("attempting gyro calibration")
             self.gyro.calibrate()
             while(self.gyro.is_calibrating()):
@@ -516,12 +636,12 @@ class Robot:
         self.drivetrain = Drivetrain(self.gyro)
         self.camera = Camera(PortVision)
 
-        # lineL = Line(brain.three_wire_port.e)
-        # lineR = Line(brain.three_wire_port.f)
+        self.lineL = Line(PortLineL)
+        self.lineR = Line(PortLineR)
 
         # arm
-        motorArmL = Motor(PortArmL, GearSetting.RATIO_18_1)
-        motorArmR = Motor(PortArmR, GearSetting.RATIO_18_1)
+        motorArmL = Motor(PortArmL, GearSetting.RATIO_36_1)
+        motorArmR = Motor(PortArmR, GearSetting.RATIO_36_1)
         motorArmR.set_reversed(True)
         motorGroupArm = MotorGroup(motorArmL, motorArmR)
         motorGripper = Motor(PortGripper, GearSetting.RATIO_18_1)
@@ -529,7 +649,7 @@ class Robot:
 
     def trayUp(self):
         """Moves the fruit tray to the up position"""
-        self.motor_TRAY.spin_to_position(-85, DEGREES, 100, PERCENT, False)
+        self.motor_TRAY.spin_to_position(-80, DEGREES, 100, PERCENT, False)
         self.trayState = 1
     def trayDown(self):
         """Moves the fruit tray to the down position"""
@@ -537,7 +657,7 @@ class Robot:
         self.trayState = 0
 
 # ports as ints are 0 indexed, but are 1 indexed on the brain and using 'Ports.Port_' notation
-robot = Robot(0, 1, 2, 3, 9, 8, 18, 5, 6, 19, brain.three_wire_port.c, brain.three_wire_port.a)
+robot = Robot(0, 1, 2, 3, 9, 8, 18, 5, 6, 19, brain.three_wire_port.c, brain.three_wire_port.a, brain.three_wire_port.e, brain.three_wire_port.f)
 """container for all robot hardware objects"""
 
 # make it less annoying to call select objects
@@ -595,7 +715,7 @@ controllerButtons = Buttons.ControllerButtonTracker(controller)
 
 class Printer:
     
-    brainList : list[str] = ["","","","","","","","","",""]
+    brainList : list[str] = [""] * 20
     controllerList : list[str] = ["","",""]
     
     @classmethod
@@ -791,13 +911,19 @@ fruitDistPID = PID(4,0,1, 100, None, False) # fruitDistPID = PID(5,0,1, 100, Non
 fruitDistPID.unbind()
 fruitDistPID.setNewSetpoint(300) # 220 with pixel data
 
-armFruitPID = PID(5,0,1, 50, None, False) # armFruitPID = PID(5,0,1, 50, None, False)
+armFruitPID = PID(2,0,1, 50, None, False) # armFruitPID = PID(5,0,1, 50, None, False)
 armFruitPID.unbind()
 armFruitPID.setNewSetpoint(150) #150 with pixel data
 
 wallPID = PID(1, 0, 1, 150,None, False, False)
 wallPID.unbind()
-wallPID.setNewSetpoint(200)
+wallPID.setNewSetpoint(150)
+
+lineTurnPID = PID(1,0,0,100,lambda: robot.lineL.value(PERCENT) - robot.lineR.value(PERCENT))
+lineTurnPID.setNewSetpoint(0) # difference of 0
+# lineDistPID = PID(1,0,0,100,lambda: (robot.lineL.value(PERCENT) + robot.lineR.value(PERCENT)) / 2, invertInput=True)
+lineDistPID = PID(1,0,0,100,lambda: min(robot.lineL.value(PERCENT), robot.lineR.value(PERCENT)), invertInput=True)
+lineDistPID.setNewSetpoint(68)
 
 class TimeLogger:
     times = []
@@ -812,41 +938,6 @@ class TimeLogger:
         cls.timeUsage.clear()
         for i in range(len(cls.times)-1):
             cls.timeUsage.append(cls.times[i+1]-cls.times[i])
-
-def globalPrinter():
-    """Method to print in another thread. Always use this to print everything."""
-    while True:
-        print("DT:", str(dt()))
-        print("Heading:", gyro.heading())
-        
-        cameraObject = camera.largestObject # store the value to prevent the main thread from updating the value from a VisionObject to None between the if and the print
-        if cameraObject != None:
-            print("Largest:", cameraObject.centerX, cameraObject.centerY, cameraObject.width, cameraObject.height)
-        else:
-            print("No object detected this cycle")
-            
-        averagedVisionObject = camera.averageLargestObject
-        if averagedVisionObject != None:
-            print(averagedVisionObject)
-        else : print("No object detected")
-
-        print(camera.visionResults)
-        print("SB:" + str(sonarB.distance(MM)) + ", SR:" + str(sonarR.distance(MM)))
-
-        Printer.add((str(currentMode) + ", " + str(currentState)), 0, 4)
-        Printer.add((str(currentMode) + ", " + str(currentState)), 1, 0)
-        Printer.add(("Stat:"+str(arm.gripperStatus) + " Com:"+str(arm.gripperCommand)), 1, 1)
-        Printer.add((str(arm.gripper.current())), 1, 2)
-        Printer.addSonar(0,1)
-        Printer.addGyro(0,2)
-        Printer.add("DT:" + str(dt()), 0, 3)
-        Printer.add("Pos: (" + str(drivetrain.robotPos[0])+", "+str(drivetrain.robotPos[1])+")", 0, 6)
-
-        Printer.print()
-        printThread.sleep_for(50)
-        print("setpoint:", wallPID.setpoint)
-    
-printThread = Thread(globalPrinter)
 
 def updateCurrentWall(newWall):
     global currentWall
@@ -867,11 +958,16 @@ trayCount : int = 0
 """amount of fruit in tray"""
 inFrontOfBasket : bool = False
 prevWallDist = 0 # initialize to 0
+returningToBaskets : bool = False
+"""stores whether the robot is navigating back to drop off fruits - overwrites the behavior of WALL_FOLLOWING while True and currentWall == 0"""
+unloadCount = 0
+boxCount = 0
+inSpace = False
+tempColor = 0
+backingTimer = 0
 
 def stateMachine():
-    """Run the state machine. \n
-       Parameter controls whether to update all PIDs at the start of the cycle. \n
-       Probably best to leave updatePIDs False without a good reason to change it."""
+    """Runs the state machine."""
     global currentMode
     global currentState
     global PIDcontrollers
@@ -883,16 +979,24 @@ def stateMachine():
     global prevWallDist
     global inFrontOfBasket
     global newState
+    global returningToBaskets
+    global unloadCount
+    global boxCount
+    global inSpace
+    global currentCollectionColor
+    global tempColor
+    global boxOrder
+    global backingTimer
 
+# exit
     if controllerButtons.pressed(Buttons.B): # exit button -- Do NOT remove, for safety
         newState = States.DEFAULT
         currentMode = Modes.DEFAULT
-
+# state transitions
     if newState != None and newState != currentState:
         currentState = newState
-
     newState = None
-
+# modes
     if currentMode == Modes.DEFAULT:
         newState = States.DEFAULT
 
@@ -936,6 +1040,10 @@ def stateMachine():
             currentMode = Modes.DEFAULT
             newState = States.DEFAULT
 
+        if controllerButtons.pressing(Buttons.LEFT):
+            if arm.goDefault():
+                controller.rumble("--")
+
     elif currentMode == Modes.FRUITFOLLOWING:
         if currentState == States.FRUITFOLLOWING:
             if camera.largestObject != None:
@@ -965,68 +1073,170 @@ def stateMachine():
         #     if(arm.zero() == True):
         #         newState = States.WALL_FOLLOWING
         
-        if currentState == States.DEFAULT:
-            newState = States.WALL_FOLLOWING
+        if currentState == States.COLLECTION_INIT:
+            trayCount = 0
             fruitSearching = True
             wallPID.reset()
-        
+            if controllerButtons.pressed(Buttons.DOWN):
+                currentWall = 0
+            if controllerButtons.pressed(Buttons.RIGHT):
+                currentWall = 1
+            if controllerButtons.pressed(Buttons.UP):
+                currentWall = 2
+            if controllerButtons.pressed(Buttons.LEFT):
+                currentWall = 3
+            if controllerButtons.pressed(Buttons.DOWN) or controllerButtons.pressed(Buttons.RIGHT) or controllerButtons.pressed(Buttons.UP) or controllerButtons.pressed(Buttons.LEFT):
+                gyro.set_heading(wallHeadings[currentWall])
+                turnPID.setNewSetpoint(wallHeadings[currentWall])
+                newState = States.WALL_RETURN
+            
+        elif currentState == States.DEFAULT and arm.zeroed:
+            if arm.goDefault():
+                arm.open()
+                newState = States.COLLECTION_INIT
+
         elif currentState == States.WALL_FOLLOWING:
             nearWall = wallFollowing(False)
-            if nearWall and fruitSearching and camera.averageLargestObject != None and camera.averageLargestObject.dist < 50: # enforce max distance of 50 cm, otherwise fruit is ignored
-                arm.open()
-                newState = States.FRUITFOLLOWING
-                armFruitPID.reset()
-                fruitDistPID.reset()
-                fruitTurnPID.reset()
+            # if nearWall and ...
+            if fruitSearching and camera.averageLargestObject != None and camera.averageLargestObject.dist < 50: # enforce max distance of 50 cm, otherwise fruit is ignored
+                if (currentCollectionColor == 0) or (camera.averageLargestObject.color + 1 == currentCollectionColor):
+                    arm.open()
+                    newState = States.FRUITFOLLOWING
+                    armFruitPID.reset()
+                    fruitDistPID.reset()
+                    fruitTurnPID.reset()
         
         elif currentState == States.WALL_FOLLOWING_REVERSE: # limited feature reversed wall following direction (no fruit)
             wallFollowing(True)
 
+        elif currentState == States.WALL_RETURN: # decides what to do after grabbing a fruit
+            drivetrain.drive(-50, 0, turnPID.getOutput(), True)
+            # if abs(gyro.orientation(ROLL)) > 8 or abs(gyro.orientation(PITCH)) > 8: # stepped up to a wall without seeing it
+            #     currentMode = Modes.DEFAULT
+            if sonarB.distance(MM) < wallPID.setpoint + 25:
+                # if returnState != None:
+                #     newState = returnState
+                #     returnState = None
+                if trayCount >= 2:
+                    returningToBaskets = True
+                    if currentWall == 1:
+                        returnState = States.WALL_FOLLOWING_REVERSE
+                        newState = States.TURNING
+                        turnPID.setNewSetpoint(turnPID.setpoint + 90)
+                    else:
+                        newState = States.WALL_FOLLOWING
+                else: 
+                    newState = States.WALL_FOLLOWING
+
         elif currentState == States.TURNING:
             drivetrain.drive(0,0,turnPID.getOutput(), True)
             if turnPID.atSetpoint():
-                if returnState == None:
+                if ((currentWall == 0 and returnState == States.WALL_FOLLOWING_REVERSE) or (currentWall == 1 and returnState == States.WALL_FOLLOWING)) and returningToBaskets:
+                    # newState = States.TURNING
+                    turnPID.setNewSetpoint(wallHeadings[2])
+                    boxCount = 0
+                    inSpace = False
+                    returnState = States.BASKET_FOLLOWING
+                elif returnState == None:
                     newState = States.WALL_FOLLOWING
                 else:
                     newState = returnState
                     returnState = None
         
         elif currentState == States.FRUITFOLLOWING:
-            if camera.largestObject != None:
+            if (camera.averageLargestObject != None and camera.largestObject != None):
+                if (currentCollectionColor != 0) and (camera.averageLargestObject.color + 1 != currentCollectionColor):
+                    newState = States.TURNING
+
                 drivetrain.drive(fruitDistPID.update(camera.largestObject.height).getOutput(), 0, fruitTurnPID.update(camera.largestObject.centerX).getOutput(), True)
-                arm.lift(armFruitPID.update(camera.largestObject.centerY).getOutput())
+                if(camera.largestObject.height < 200):
+                    arm.lift(armFruitPID.update(camera.largestObject.centerY).getOutput())
                 arm.open()
                 if(camera.largestObject.width > 300):
                     arm.close()
                     newState = States.CLOSING
+                tempColor = camera.averageLargestObject.color + 1
             else:
                 drivetrain.stopAll()
             
             if camera.averageLargestObject == None:
-                newState = States.TURNING
+                newState = States.BACK_AWAY
                 
         elif currentState == States.CLOSING:
             if arm.gripperCommand == 0:
                 newState = States.DROPFRUIT
 
         elif currentState == States.DROPFRUIT:
-            drivetrain.drive(-25,0,0,True) 
+            drivetrain.drive(-25,0,0,True)
             if arm.goDefault():
-                arm.open()
-                # arm.goDefault()
-                newState = States.TURNING
+                currentCollectionColor = tempColor
+                newState = States.BACK_AWAY
+                backingTimer = 0
                 trayCount += 1
 
+        elif currentState == States.BACK_AWAY:
+            drivetrain.drive(-25,0,0, True)
+            backingTimer += dt()
+            if backingTimer > 1000000:
+                arm.open()
+                returnState = States.WALL_RETURN
+                newState = States.TURNING
+                turnPID.setNewSetpoint(wallHeadings[currentWall])
+                backingTimer = 0
+
+        elif currentState == States.BASKET_FOLLOWING:
+            if inSpace:
+                drivetrain.drive(0, 40, 0,True)
+                if(robot.lineL.value(PERCENT) <= 70) and (robot.lineR.value(PERCENT) <= 70):
+                    inSpace = False
+            else:
+                if (robot.lineR.value(PERCENT) > 70) and (robot.lineL.value(PERCENT) <= 68):
+                    inSpace = True
+                    boxCount += 1
+                elif (robot.lineL.value(PERCENT) <= 70) and (robot.lineR.value(PERCENT) <= 70):
+                    drivetrain.drive(lineDistPID.getOutput(),50,lineTurnPID.getOutput(),True)
+                else:
+                    drivetrain.drive(20,0,0,True)
+            
+            try:
+                if boxOrder.index(currentCollectionColor) == boxCount:
+                    controller.rumble("--")
+                    if(boxOrder.index(currentCollectionColor) == 0):
+                        if(lineDistPID.atSetpoint()):
+                            newState = States.UNLOAD
+                    else:
+                        Delays.schedule(
+                            Delays.Delay(1, States.UNLOAD)
+                        )
+            except:
+                raise RuntimeError("Current color" + str(currentCollectionColor) + "not in colorList")
+
+        elif currentState == States.UNLOAD:
+            if robot.motor_TRAY.is_done():
+                unloadCount += 1
+                if robot.trayState == 0:
+                    robot.trayUp()
+                else:
+                    robot.trayDown()
+            if unloadCount >= 6: # cycle 3 times
+                robot.trayDown()
+                unloadCount = 0
+                turnPID.setNewSetpoint(wallHeadings[0])
+                trayCount = 0
+                currentCollectionColor = 0
+                returnState = States.WALL_FOLLOWING
+                newState = States.TURNING
+                returningToBaskets = False
+
 ############################################################################################################################################################
 ############################################################################################################################################################
 ############################################################################################################################################################
 
-def wallFollowing(reversed = False): # created to prevent duplicate code between normal and reversed wall following
+def wallFollowing(reversed = False, speed = 100): # created to prevent duplicate code between normal and reversed wall following
     global prevWallDist
     global newState
     global returnState
     global currentMode
-    global inFrontOfBasket
     if reversed:
         wallSonar = sonarR
         sideSonar = sonarB
@@ -1034,30 +1244,21 @@ def wallFollowing(reversed = False): # created to prevent duplicate code between
         wallSonar = sonarB
         sideSonar = sonarR
 
-    if currentWall == 0:
-        wallDist = wallSonar.distance(MM)
-        if prevWallDist == 0:
-            prevWallDist = wallDist
-            wallPID.setNewSetpoint(400)
-        if wallDist - prevWallDist < -5: # need to test
-            inFrontOfBasket = True
-            wallPID.setNewSetpoint(50)
-        if wallDist - prevWallDist > 5:
-            inFrontOfBasket = False
-            wallPID.setNewSetpoint(400)
-    else:
-        wallPID.setNewSetpoint(200)
+    if speed > 100 or speed < 0:
+        raise RuntimeError("Speed out of bounds. Speed = " + str(speed))
+
+    wallPID.setNewSetpoint(150)
 
     if reversed:
         if wallSonar.distance(MM) < 2000:
-            drivetrain.drive(-100, -wallPID.update(wallSonar.distance(MM)).getOutput(), turnPID.getOutput(), True)
+            drivetrain.drive(-speed, -wallPID.update(wallSonar.distance(MM)).getOutput(), turnPID.getOutput(), True)
         else:
-            drivetrain.drive(-50, 0, turnPID.getOutput(), True)
+            drivetrain.drive(-speed/2, 0, turnPID.getOutput(), True)
     else:
         if wallSonar.distance(MM) < 2000:
-            drivetrain.drive(wallPID.update(wallSonar.distance(MM)).getOutput(), 100, turnPID.getOutput(), True)
+            drivetrain.drive(wallPID.update(wallSonar.distance(MM)).getOutput(), speed, turnPID.getOutput(), True)
         else:
-            drivetrain.drive(0, 50, turnPID.getOutput(), True)
+            drivetrain.drive(0, speed/2, turnPID.getOutput(), True)
     
     nearWall = wallPID.atSetpoint(25, sonarB.distance(MM))
     
@@ -1075,6 +1276,43 @@ def wallFollowing(reversed = False): # created to prevent duplicate code between
         currentMode = Modes.DEFAULT
     return nearWall
 
+def globalPrinter():
+    """Method to print in another thread. Always use this to print everything."""
+    while True:
+        print("DT:", str(dt()))
+        print("Heading:", gyro.heading())
+        
+        cameraObject = camera.largestObject # store the value to prevent the main thread from updating the value from a VisionObject to None between the if and the print
+        if cameraObject != None:
+            print("Largest:", cameraObject.centerX, cameraObject.centerY, cameraObject.width, cameraObject.height)
+        else:
+            print("No object detected this cycle")
+            
+        averagedVisionObject = camera.averageLargestObject
+        if averagedVisionObject != None:
+            print(averagedVisionObject)
+        else : print("No object detected")
+
+        print(camera.visionResults)
+        print("SB:" + str(sonarB.distance(MM)) + ", SR:" + str(sonarR.distance(MM)))
+
+        Printer.add((str(currentMode) + ", " + str(currentState)), 0, 4)
+        Printer.add((str(currentMode) + ", " + str(currentState)), 1, 0)
+        Printer.add(("Stat:"+str(arm.gripperStatus) + " Com:"+str(arm.gripperCommand)), 1, 1)
+        Printer.add((str(arm.gripper.current())), 1, 2)
+        Printer.addSonar(0,1)
+        Printer.addGyro(0,2)
+        Printer.add("CPS:" + str(1000000/dt()), 0, 3)
+        Printer.add("Pos: (" + str(drivetrain.robotPos[0])+", "+str(drivetrain.robotPos[1])+")", 0, 6)
+        Printer.add(boxCount, 0, 9)
+        Printer.add(trayCount, 0, 10)
+
+        Printer.print()
+        printThread.sleep_for(50)
+        print("setpoint:", wallPID.setpoint)
+    
+printThread = Thread(globalPrinter)
+
 while True:
 
 # loop initialization
@@ -1088,13 +1326,13 @@ while True:
     PID.updateAllPIDs()
 
 # scheduling
-    # Delays.checkAllDelays()
+    Delays.checkAllDelays()
 
 # main run
     stateMachine()
 
 # extra outputs
-    arm.updateGripper()
+    arm.updateArm()
     if not drivetrain.active:
         drivetrain.stopAll()
     if not arm.active:
