@@ -964,7 +964,7 @@ unloadCount = 0
 boxCount = 0
 inSpace = False
 tempColor = 0
-backingTimer = 0
+stateTimer = 0
 
 def stateMachine():
     """Runs the state machine."""
@@ -986,7 +986,7 @@ def stateMachine():
     global currentCollectionColor
     global tempColor
     global boxOrder
-    global backingTimer
+    global stateTimer
 
 # exit
     if controllerButtons.pressed(Buttons.B): # exit button -- Do NOT remove, for safety
@@ -1129,6 +1129,7 @@ def stateMachine():
                     newState = States.WALL_FOLLOWING
 
         elif currentState == States.TURNING:
+            if(trayCount == 0)
             drivetrain.drive(0,0,turnPID.getOutput(), True)
             if turnPID.atSetpoint():
                 if ((currentWall == 0 and returnState == States.WALL_FOLLOWING_REVERSE) or (currentWall == 1 and returnState == States.WALL_FOLLOWING)) and returningToBaskets:
@@ -1171,18 +1172,18 @@ def stateMachine():
             if arm.goDefault():
                 currentCollectionColor = tempColor
                 newState = States.BACK_AWAY
-                backingTimer = 0
+                stateTimer = 0
                 trayCount += 1
 
         elif currentState == States.BACK_AWAY:
             drivetrain.drive(-25,0,0, True)
-            backingTimer += dt()
-            if backingTimer > 1000000:
+            stateTimer += dt()
+            if stateTimer > 1000000:
                 arm.open()
                 returnState = States.WALL_RETURN
                 newState = States.TURNING
                 turnPID.setNewSetpoint(wallHeadings[currentWall])
-                backingTimer = 0
+                stateTimer = 0
 
         elif currentState == States.BASKET_FOLLOWING:
             if inSpace:
@@ -1204,21 +1205,23 @@ def stateMachine():
                     if(boxOrder.index(currentCollectionColor) == 0):
                         if(lineDistPID.atSetpoint()):
                             newState = States.UNLOAD
+                            stateTimer = 0
                     else:
                         Delays.schedule(
                             Delays.Delay(1, States.UNLOAD)
                         )
+                        stateTimer = 0
             except:
                 raise RuntimeError("Current color" + str(currentCollectionColor) + "not in colorList")
 
         elif currentState == States.UNLOAD:
-            if robot.motor_TRAY.is_done():
+            if robot.motor_TRAY.is_done() and arm.gripperCommand == 0:
                 unloadCount += 1
                 if robot.trayState == 0:
                     robot.trayUp()
                 else:
                     robot.trayDown()
-            if unloadCount >= 6: # cycle 3 times
+            if unloadCount >= 8: # cycle 3 times
                 robot.trayDown()
                 unloadCount = 0
                 turnPID.setNewSetpoint(wallHeadings[0])
@@ -1306,6 +1309,7 @@ def globalPrinter():
         Printer.add("Pos: (" + str(drivetrain.robotPos[0])+", "+str(drivetrain.robotPos[1])+")", 0, 6)
         Printer.add(boxCount, 0, 9)
         Printer.add(trayCount, 0, 10)
+        Printer.add(("Color I have: ", currentCollectionColor), 0, 5)
 
         Printer.print()
         printThread.sleep_for(50)
