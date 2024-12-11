@@ -284,7 +284,7 @@ class Arm:
         self.driving = False
     def zero(self):
         """Call until arm is zerored, when arm is zeroes will return True"""
-        if not (self.liftGroup.velocity(RPM) > -1 and self.prevArmVel < -1):
+        if not (self.liftGroup.velocity(RPM) > -2 and self.prevArmVel < -2):
             self.lift(-15)
             self.prevArmVel = self.liftGroup.velocity(RPM)
             return False
@@ -296,12 +296,12 @@ class Arm:
 
     def goDefault(self):
         self.active = True
-        self.liftGroup.spin_to_position(0.65, TURNS, 50, PERCENT, False) # 0.6 turns
+        self.liftGroup.spin_to_position(0.75, TURNS, 50, PERCENT, False) # 0.6 turns
         return self.liftGroup.is_done()
     
     def goHigh(self):
         self.active = True
-        self.liftGroup.spin_to_position(1.5, TURNS, 50, PERCENT, False)
+        self.liftGroup.spin_to_position(1.25, TURNS, 50, PERCENT, False)
         return self.liftGroup.is_done()
     
     def open(self):
@@ -372,67 +372,67 @@ class Arm:
 class Camera:
     """Stores all data relating to the camera and vision processing"""
     cameraConfig = {
-        "brightness": 65, #60
+        "brightness": 50,
         "signatures": [
             {
-            "name": "SIG_1",
+            "name": "G",
             "parameters": {
-                "uMin": -4941,
-                "uMax": -3581,
-                "uMean": -4261,
-                "vMin": -3543,
-                "vMax": -2871,
-                "vMean": -3207,
-                "rgb": 3097909,
+                "uMin": -6023,
+                "uMax": -4469,
+                "uMean": -5246,
+                "vMin": -3959,
+                "vMax": -2671,
+                "vMean": -3315,
+                "rgb": 3494976,
                 "type": 0,
-                "name": "SIG_1"
+                "name": "G"
             },
-            "range": 5.4
+            "range": 4.3
             },
             {
-            "name": "SIG_2",
+            "name": "O",
             "parameters": {
-                "uMin": 6697,
-                "uMax": 7791,
-                "uMean": 7244,
-                "vMin": -2431,
-                "vMax": -2123,
-                "vMean": -2277,
-                "rgb": 12939350,
+                "uMin": 8997,
+                "uMax": 9877,
+                "uMean": 9437,
+                "vMin": -2415,
+                "vMax": -2161,
+                "vMean": -2288,
+                "rgb": 9257777,
                 "type": 0,
-                "name": "SIG_2"
+                "name": "O"
             },
-            "range": 5.8
+            "range": 9.4
             },
             {
-            "name": "SIG_3",
+            "name": "Y",
             "parameters": {
-                "uMin": 2379,
-                "uMax": 3059,
-                "uMean": 2719,
-                "vMin": -3455,
-                "vMax": -3149,
-                "vMean": -3302,
-                "rgb": 10847840,
+                "uMin": 3461,
+                "uMax": 4117,
+                "uMean": 3789,
+                "vMin": -3501,
+                "vMax": -3097,
+                "vMean": -3299,
+                "rgb": 12226408,
                 "type": 0,
-                "name": "SIG_3"
+                "name": "Y"
             },
-            "range": 4.6
+            "range": 5
             },
             {
             "name": "SIG_4",
             "parameters": {
-                "uMin": 6523,
-                "uMax": 7249,
-                "uMean": 6886,
-                "vMin": 451,
-                "vMax": 811,
-                "vMean": 631,
-                "rgb": 10902628,
+                "uMin": 0,
+                "uMax": 0,
+                "uMean": 0,
+                "vMin": 0,
+                "vMax": 0,
+                "vMean": 0,
+                "rgb": 0,
                 "type": 0,
                 "name": "SIG_4"
             },
-            "range": 4.2
+            "range": 3.2
             },
             {
             "name": "SIG_5",
@@ -447,7 +447,7 @@ class Camera:
                 "type": 0,
                 "name": "SIG_5"
             },
-            "range": 2.5
+            "range": 5
             },
             {
             "name": "SIG_6",
@@ -615,6 +615,7 @@ class Robot:
         self.motor_BL = Motor(PortMotorBL)
         self.motor_BR = Motor(PortMotorBR)
         self.motor_TRAY = Motor(PortMotorTRAY)
+        self.motor_TRAY.set_max_torque(50, PERCENT)
         self.motor_FL.set_reversed(True)
         self.motor_BL.set_reversed(True)
         self.gyro = Inertial(PortGyro)
@@ -623,19 +624,19 @@ class Robot:
         self.navHeadingSetpoint = 0
         # self.hold = False
         
-        gyroPos1 = 0
-        gyroPos2 = 1
-        while abs(gyroPos1 - gyroPos2) > 0.012:
-            print("attempting gyro calibration")
-            self.gyro.calibrate()
-            while(self.gyro.is_calibrating()):
-                sleep(10)
-            self.gyro.reset_rotation()
-            sleep(1000)
-            gyroPos1 = self.gyro.heading()
-            sleep(1000)
-            gyroPos2 = self.gyro.heading()
-        self.gyro.reset_rotation()
+        # gyroPos1 = 0
+        # gyroPos2 = 1
+        # while abs(gyroPos1 - gyroPos2) > 0.012:
+        #     print("attempting gyro calibration")
+        self.gyro.calibrate()
+        while(self.gyro.is_calibrating()):
+            sleep(10)
+        #     self.gyro.reset_rotation()
+        #     sleep(1000)
+        #     gyroPos1 = self.gyro.heading()
+        #     sleep(1000)
+        #     gyroPos2 = self.gyro.heading()
+        # self.gyro.reset_rotation()
 
         self.sonarR = Sonar(PortSonarR) # uses 3wire a/b pair, so set to use a (first port of pair)
         self.sonarB = Sonar(PortSonarB)
@@ -651,6 +652,7 @@ class Robot:
         motorArmR.set_reversed(True)
         motorGroupArm = MotorGroup(motorArmL, motorArmR)
         motorGripper = Motor(PortGripper, GearSetting.RATIO_18_1)
+        motorGripper.set_max_torque(60, PERCENT)
         self.arm = Arm(motorGroupArm, motorGripper)
 
     def trayUp(self):
@@ -1016,8 +1018,11 @@ def stateMachine():
             currentMode = Modes.COLLECTION
 
         if controllerButtons.pressed(Buttons.Y):
-            currentMode = Modes.FRUITFOLLOWING
-            newState = States.FRUITFOLLOWING
+            currentMode = Modes.COLLECTION
+            newState = States.BASKET_FOLLOWING
+            currentCollectionColor = 2
+            inSpace = False
+            boxCount = 0
 
         if controllerButtons.pressing(Buttons.LEFT):
             print("BRHUHHH")
@@ -1116,7 +1121,7 @@ def stateMachine():
         
         elif currentState == States.WALL_FOLLOWING_REVERSE: # limited feature reversed wall following direction (no fruit)
             wallFollowing(True)
-
+ 
         elif currentState == States.WALL_RETURN: # decides what to do after grabbing a fruit
             drivetrain.drive(-50, 0, turnPID.getOutput(), True)
             # if abs(gyro.orientation(ROLL)) > 8 or abs(gyro.orientation(PITCH)) > 8: # stepped up to a wall without seeing it
@@ -1161,7 +1166,7 @@ def stateMachine():
                 if(camera.largestObject.height < 200):
                     arm.lift(armFruitPID.update(camera.largestObject.centerY).getOutput())
                 arm.open()
-                if(camera.largestObject.width > 275): # test threshold
+                if(camera.largestObject.width > 300 and camera.averageLargestObject.fruitType == 1) or (camera.largestObject.width > 200 and camera.averageLargestObject.fruitType == 0): # test threshold
                     arm.close()
                     newState = States.CLOSING
                 tempColor = camera.averageLargestObject.color + 1
@@ -1174,6 +1179,9 @@ def stateMachine():
         elif currentState == States.CLOSING:
             if arm.gripperCommand == 0:
                 newState = States.DROPFRUIT
+                collectedCount += 1
+                if collectedCount >= 2:
+                    returningToBaskets = True
 
         elif currentState == States.DROPFRUIT:
             # drivetrain.drive(-25,0,0,True)
@@ -1181,7 +1189,8 @@ def stateMachine():
                 currentCollectionColor = tempColor
                 newState = States.BACK_AWAY
                 backingTimer = 0
-                collectedCount += 1
+                if collectedCount >= 2:
+                    returningToBaskets = True
 
         elif currentState == States.BACK_AWAY:
             drivetrain.drive(-50,0,0, True)
@@ -1220,7 +1229,7 @@ def stateMachine():
                             newState = States.UNLOAD_RAISE_ARM
                     else:
                         Delays.schedule(
-                            Delays.Delay(1, States.UNLOAD_RAISE_ARM)
+                            Delays.Delay(1.5, States.UNLOAD_RAISE_ARM)
                         )
             except:
                 raise RuntimeError("Current color" + str(currentCollectionColor) + "not in colorList")
@@ -1230,7 +1239,7 @@ def stateMachine():
                 newState = States.UNLOAD
 
         elif currentState == States.UNLOAD:
-            if robot.motor_TRAY.is_done() and arm.gripperCommand == 0:
+            if robot.motor_TRAY.is_done() and arm.gripperCommand != -1:
                 unloadCount += 1
                 if robot.trayState == 0:
                     robot.trayUp()
@@ -1238,7 +1247,7 @@ def stateMachine():
                     robot.trayDown()
             if unloadCount == 5:
                 arm.open()
-            if unloadCount >= 6: # cycle 3 times
+            if unloadCount >= 10: # cycle 3 times
                 robot.trayDown()
                 unloadCount = 0
                 turnPID.setNewSetpoint(wallHeadings[0])
