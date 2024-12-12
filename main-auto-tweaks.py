@@ -976,6 +976,9 @@ stateTimer = 0
 gyroZeroed : bool = False
 collectedCount = 0
 cycleStartWall = 0
+prevWall = 0
+prevprevwall = 0
+wallTotal = 0
 
 def stateMachine():
     """Runs the state machine."""
@@ -1001,6 +1004,7 @@ def stateMachine():
     global gyroZeroed
     global collectedCount
     global cycleStartWall
+    global wallTotal
 
 # exit
     if controllerButtons.pressed(Buttons.B): # exit button -- Do NOT remove, for safety
@@ -1090,6 +1094,12 @@ def stateMachine():
         #     if(arm.zero() == True):
         #         newState = States.WALL_FOLLOWING
         
+        if wallTotal > 12:
+            returningToBaskets = True
+            newState = States.WALL_RETURN
+            if currentCollectionColor == 0:
+                currentMode = Modes.DEFAULT
+
         if currentState == States.COLLECTION_INIT:
             collectedCount = 0
             fruitSearching = True
@@ -1122,17 +1132,13 @@ def stateMachine():
                     armFruitPID.reset()
                     fruitDistPID.reset()
                     fruitTurnPID.reset()
-                    if cycleStartWall + 1 == currentWall:
-                        returningToBaskets = True
-                        newState = States.WALL_RETURN
-                        if currentCollectionColor == 0:
-                            currentMode = Modes.DEFAULT
         
         elif currentState == States.WALL_FOLLOWING_REVERSE: # limited feature reversed wall following direction (no fruit)
             wallFollowing(True)
  
         elif currentState == States.WALL_RETURN: # decides what to do after grabbing a fruit
             cycleStartWall = currentWall
+            wallTotal = 0
             drivetrain.drive(-50, 0, turnPID.getOutput(), True)
             # if abs(gyro.orientation(ROLL)) > 8 or abs(gyro.orientation(PITCH)) > 8: # stepped up to a wall without seeing it
             #     currentMode = Modes.DEFAULT
@@ -1172,15 +1178,15 @@ def stateMachine():
                 if (currentCollectionColor != 0) and (camera.averageLargestObject.color + 1 != currentCollectionColor):
                     newState = States.TURNING
                 
-                if(arm.liftGroup.position() < 200):
-                    collectedCount = 2
-                    newState = States.WALL_RETURN
+                # if(arm.liftGroup.position() < 200):
+                #     collectedCount = 2
+                #     newState = States.WALL_RETURN
 
                 drivetrain.drive(fruitDistPID.update(camera.largestObject.height).getOutput(), 0, fruitTurnPID.update(camera.largestObject.centerX).getOutput(), True)
                 if(camera.largestObject.height < 200):
                     arm.lift(armFruitPID.update(camera.largestObject.centerY).getOutput())
                 arm.open()
-                if(camera.largestObject.width > 300 and camera.averageLargestObject.fruitType == 1) or (camera.largestObject.width > 200 and camera.averageLargestObject.fruitType == 0): # test threshold
+                if(camera.largestObject.width > 300 and camera.averageLargestObject.fruitType == 1) or (camera.largestObject.width > 150 and camera.averageLargestObject.fruitType == 0): # test threshold
                     arm.close()
                     newState = States.CLOSING
                 tempColor = camera.averageLargestObject.color + 1
@@ -1239,7 +1245,7 @@ def stateMachine():
                 if boxOrder.index(currentCollectionColor) == boxCount:
                     controller.rumble("--")
                     if(boxOrder.index(currentCollectionColor) == 0):
-                        if(lineDistPID.atSetpoint()):
+                        if (robot.lineL.value(PERCENT) <= 70) and (robot.lineR.value(PERCENT) <= 70):
                             newState = States.UNLOAD_RAISE_ARM
                     else:
                         Delays.schedule(
@@ -1253,6 +1259,7 @@ def stateMachine():
                 newState = States.UNLOAD
 
         elif currentState == States.UNLOAD:
+            cycleStartWall = 0
             if unloadCount == 0:
                 stateTimer = 0
             if robot.motor_TRAY.is_done() and arm.gripperCommand != -1 and ((stateTimer > 1500000 and unloadCount >= 3) or unloadCount < 3):
@@ -1291,6 +1298,8 @@ def wallFollowing(reversed = False, speed = 100): # created to prevent duplicate
     global returnState
     global currentMode
     global collectedCount
+    global wallTotal
+    global returningToBaskets
 
     if reversed:
         wallSonar = sonarR
@@ -1320,14 +1329,17 @@ def wallFollowing(reversed = False, speed = 100): # created to prevent duplicate
     if nearWall and (sideSonar.distance(MM) < 200 or (((currentWall == 3 and not reversed) or (currentWall == 1 and reversed)) and sideSonar.distance(MM) < 400)):
         newState = States.TURNING
         if(collectedCount == 1):
-                collectedCount = 2
+            collectedCount = 2
+            returningToBaskets = True
         if reversed:
             turnPID.setNewSetpoint(turnPID.setpoint + 90) # will always maintain (0 <= setpoint < 360) due to continuous rotation mode
             returnState = States.WALL_FOLLOWING_REVERSE
             updateCurrentWall(currentWall-1)
+            wallTotal += currentWall
         else:
             turnPID.setNewSetpoint(turnPID.setpoint - 90)
             updateCurrentWall(currentWall+1)
+            wallTotal += currentWall
             returnState = States.WALL_FOLLOWING
     if abs(gyro.orientation(ROLL)) > 8 or abs(gyro.orientation(PITCH)) > 8: # stepped up to a wall without seeing it
         currentMode = Modes.DEFAULT
